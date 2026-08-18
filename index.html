@@ -458,7 +458,7 @@ function drawAnalisisCharts(){
     }]},
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},
-        tooltip:{callbacks:{label:(_,{dataIndex:i})=>scatterData[i].label+' — SILPA: '+scatterData[i].x.toFixed(1)+'%, Inflasi: '+scatterData[i].y.toFixed(2)+'%'}},
+        tooltip:{callbacks:{title:function(items){const i=items[0].dataIndex;return scatterData[i].label;},label:function(ctx){const i=ctx.dataIndex;return'SILPA: '+scatterData[i].x.toFixed(1)+'%  |  Inflasi: '+scatterData[i].y.toFixed(2)+'%';}}},
         annotation:undefined},
       scales:{
         x:{title:{display:true,text:'Rasio SILPA / Pendapatan (%)',font:{family:'Inter',size:10,weight:'600'},color:'#64748B'},grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'}},
