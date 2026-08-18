@@ -85,7 +85,7 @@ table.dt tbody tr:hover{background:#F8FAFD}
 </div></div></header>
 <nav class="sub-tabs" id="subTabs"></nav>
 <main class="main" id="mainContent"><div class="loading"><div class="spinner"></div><span>Memuat data…</span></div></main>
-<footer class="footer">Sumber data: DJPb (OMSPAN/MEBE) · BPS · Bank Indonesia — Data dimuat otomatis dari CSV repositori</footer>
+<footer class="footer">Sumber data: DJPb · BPS · Bank Indonesia</footer>
 
 <script>
 // ═══ CONFIG ═══
@@ -105,7 +105,9 @@ const PEMDA_INF={'Kota Ambon':'Ambon','Kota Tual':'Tual','Kabupaten Maluku Tenga
 
 // ═══ STATE ═══
 let D={apbn:[],apbd:[],inflasi:[],pdrb:[],penduduk:[],kemiskinan:[],ipm:[],pengangguran:[],gini:[],geo:null};
-let source='djpb',tab='apbn',apbnY,apbnM,apbnCmp='',apbdM,apbdMetric='pendapatan',apbdGrp='',apbdCmp='',infRange=24,infLocs=['Maluku','Ambon','Tual','MalukuTengah','Nasional'];
+let source='djpb',tab='apbn',apbnY,apbnM,apbnCmp='',apbnKomp='',apbdM,apbdMetric='pendapatan',apbdGrp='',apbdCmp='',infRange=24,infLocs=['Maluku','Ambon','Tual','MalukuTengah','Nasional'];
+// Shade palettes for detailed pie view — variations of the group color
+const KOMP_PALETTES={pendapatan:['#2E7D32','#66BB6A','#A5D6A7','#C8E6C9'],belanja:['#C62828','#EF5350','#EF9A9A','#FFCDD2'],tkdd:['#0D47A1','#1976D2','#42A5F5','#64B5F6','#90CAF9','#BBDEFB']};
 let charts={},lmap=null,glayer=null;
 
 // ═══ LOAD ═══
@@ -167,7 +169,7 @@ function setSubTabs(){
 function render(){
   dC();dM();setSubTabs();
   const main=document.getElementById('mainContent');
-  document.getElementById('cutoffBadge').textContent='BAILEO';
+  document.getElementById('cutoffBadge').textContent='Ver 0.1';
   if(source==='djpb'){
     if(tab==='apbn')main.innerHTML=renderAPBN();
     else if(tab==='apbd')main.innerHTML=renderAPBD();
@@ -203,10 +205,10 @@ function renderAPBN(){
   const pp=sg(pv,'pendapatan'),bp=sg(pv,'belanja'),tp=sg(pv,'tkdd');
   const tP=p.pagu+b.pagu+t.pagu,tR=p.real+b.real+t.real,sr=tP?(tR/tP*100):0;
   const cmpAvail=apbnCmp==='yoy'||(apbnCmp==='mom'&&apbnM>1);
-  return`<div><div class="controls"><div class="cg"><label>Tahun</label><select id="sY">${yrs.map(y=>'<option value="'+y+'"'+(y===apbnY?' selected':'')+'>'+y+'</option>').join('')}</select></div><div class="cg"><label>s.d.</label><select id="sM">${mos.map(m=>'<option value="'+m+'"'+(m===apbnM?' selected':'')+'>'+BLN_F[m]+'</option>').join('')}</select></div><div class="spacer"></div><div class="cg"><label>Bandingkan</label><select id="sCmp"><option value=""${!apbnCmp?' selected':''}>Tidak</option><option value="mom"${apbnCmp==='mom'?' selected':''}>vs Bulan Lalu</option><option value="yoy"${apbnCmp==='yoy'?' selected':''}>vs Tahun Lalu (YoY)</option></select></div></div>
+  return`<div><div class="controls"><div class="cg"><label>Tahun</label><select id="sY">${yrs.map(y=>'<option value="'+y+'"'+(y===apbnY?' selected':'')+'>'+y+'</option>').join('')}</select></div><div class="cg"><label>s.d.</label><select id="sM">${mos.map(m=>'<option value="'+m+'"'+(m===apbnM?' selected':'')+'>'+BLN_F[m]+'</option>').join('')}</select></div><div class="cg"><label>Kelompok</label><select id="sKomp"><option value=""${!apbnKomp?' selected':''}>Semua</option><option value="pendapatan"${apbnKomp==='pendapatan'?' selected':''}>Pendapatan</option><option value="belanja"${apbnKomp==='belanja'?' selected':''}>Belanja K/L</option><option value="tkdd"${apbnKomp==='tkdd'?' selected':''}>TKDD</option></select></div><div class="spacer"></div><div class="cg"><label>Bandingkan</label><select id="sCmp"><option value=""${!apbnCmp?' selected':''}>Tidak</option><option value="mom"${apbnCmp==='mom'?' selected':''}>vs Bulan Lalu</option><option value="yoy"${apbnCmp==='yoy'?' selected':''}>vs Tahun Lalu (YoY)</option></select></div></div>
   <div class="kg">${mkKpi('Pendapatan',p,pp,cmpAvail,'cg1')}${mkKpi('Belanja K/L',b,bp,cmpAvail,'cr')}${mkKpi('TKDD',t,tp,cmpAvail,'cb2')}<div class="kc cgo"><div class="kl">Total Serapan</div><div class="kv">${sr.toFixed(1)}<span class="u">%</span></div><div class="ks"><span class="kpa">${fM(tR)} / ${fM(tP)}</span></div></div></div>
-  <div class="panels"><div class="panel pf"><div class="pt">Serapan per Komponen</div><div class="ps">Panjang bar = pagu (100%) · warna = realisasi · abu-abu = sisa pagu · hover untuk nilai absolut</div><div class="cw"><canvas id="cBar" height="440"></canvas></div></div></div>
-  <div class="panels"><div class="panel"><div class="pt">Komposisi Realisasi</div><div class="cw"><canvas id="cDonut" height="280"></canvas></div></div><div class="panel"><div class="pt">Tren Bulanan ${apbnY}${apbnCmp==='yoy'?' vs '+(apbnY-1):''}</div><div class="cw"><canvas id="cTrend" height="280"></canvas></div></div></div>
+  <div class="panels"><div class="panel pf"><div class="pt">Serapan per Komponen${apbnKomp?' — '+GRP[apbnKomp]:''}</div><div class="ps">Panjang bar = pagu (100%) · warna = realisasi · abu-abu = sisa pagu${apbnKomp?'':' · dikelompokkan: hijau=pendapatan, merah=belanja, biru=TKDD'}</div><div class="cw"><canvas id="cBar" height="${apbnKomp?260:440}"></canvas></div></div></div>
+  <div class="panels"><div class="panel"><div class="pt">Komposisi Realisasi${apbnKomp?' — '+GRP[apbnKomp]:' (per Kelompok)'}</div><div class="cw"><canvas id="cDonut" height="280"></canvas></div></div><div class="panel"><div class="pt">Tren Bulanan ${apbnY}${apbnCmp==='yoy'?' vs '+(apbnY-1):''}</div><div class="cw"><canvas id="cTrend" height="280"></canvas></div></div></div>
   <div class="panel pf"><div class="pt">Rincian Pagu & Realisasi</div><div class="tw">${apbnTbl(c,pv,cmpAvail)}</div></div></div>`;}
 function mkKpi(t,d,pv,cmpAvail,cls){const pc=d.pagu?(d.real/d.pagu*100):0;let y='';if(cmpAvail&&pv.real){const df=(d.real-pv.real)/pv.real*100;const lbl=apbnCmp==='mom'?'MoM':'YoY';y='<span class="yoy '+(df>=0?'yu':'yd')+'">'+(df>=0?'▲':'▼')+' '+Math.abs(df).toFixed(1)+'% '+lbl+'</span>';}return'<div class="kc '+cls+'"><div class="kl">'+t+'</div><div class="kv">'+fmt(d.real)+'<span class="u">'+fU(d.real)+'</span></div><div class="ks"><span class="kpa">Pagu: '+fmt(d.pagu)+fU(d.pagu)+'</span><span class="kpe '+pCl(pc)+'">'+pc.toFixed(1)+'%</span>'+y+'</div></div>';}
 function apbnTbl(c,pv,cmpAvail){const gs=['pendapatan','belanja','tkdd'];const cmpLbl=apbnCmp==='mom'?'Bulan Lalu':(apbnY-1);
@@ -217,8 +219,13 @@ function apbnTbl(c,pv,cmpAvail){const gs=['pendapatan','belanja','tkdd'];const c
       h+='<tr><td style="padding-left:1.4rem">'+m.l+'</td><td>'+(rw.pagu/1e9).toFixed(2)+'</td><td>'+(rw.real/1e9).toFixed(2)+'</td><td><span class="kpe '+pCl(pc)+'">'+pc.toFixed(1)+'%</span></td>'+(cmpAvail?'<td>'+(pr?(pr.real/1e9).toFixed(2):'—')+'</td><td>'+(pr&&pr.real?((rw.real-pr.real)/pr.real*100).toFixed(1)+'%':'—')+'</td>':'')+'<td><div class="bc"><div class="bt"><div class="bf" style="width:'+Math.min(pc,100)+'%;background:'+bCo(pc)+'"></div></div></div></td></tr>';});}
   return h+'</tbody></table>';}
 function drawAPBN(){const c=gf(apbnY,apbnM);
-// Sort components by pagu descending so biggest is at top
-const compsSorted=Object.entries(KOMP).sort((a,b)=>{const rA=c.find(x=>x.kode===a[0]),rB=c.find(x=>x.kode===b[0]);return(rB?.pagu||0)-(rA?.pagu||0);});
+// Filter components by group if apbnKomp set
+let compEntries=Object.entries(KOMP);
+if(apbnKomp)compEntries=compEntries.filter(([,v])=>v.g===apbnKomp);
+// Sort: when Semua, by group order (o field naturally does this); when filtered, by pagu desc within
+const compsSorted=apbnKomp
+  ?compEntries.sort((a,b)=>{const rA=c.find(x=>x.kode===a[0]),rB=c.find(x=>x.kode===b[0]);return(rB?.pagu||0)-(rA?.pagu||0);})
+  :compEntries.sort((a,b)=>{const gO={pendapatan:1,belanja:2,tkdd:3};if(gO[a[1].g]!==gO[b[1].g])return gO[a[1].g]-gO[b[1].g];const rA=c.find(x=>x.kode===a[0]),rB=c.find(x=>x.kode===b[0]);return(rB?.pagu||0)-(rA?.pagu||0);});
 const realPct=compsSorted.map(([k])=>{const r=c.find(x=>x.kode===k);return r&&r.pagu>0?Math.min(r.real/r.pagu*100,100):0;});
 const actualPct=compsSorted.map(([k])=>{const r=c.find(x=>x.kode===k);return r&&r.pagu>0?r.real/r.pagu*100:0;});
 const sisaPct=realPct.map(v=>100-v);
@@ -236,7 +243,21 @@ charts.bar=new Chart(document.getElementById('cBar'),{type:'bar',data:{labels:co
   scales:{x:{stacked:true,min:0,max:100,ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'},grid:{color:'#F1F5F9'}},
     y:{stacked:true,ticks:{font:{family:'Inter',size:10.5},autoSkip:false},grid:{display:false}}}}});
 
-const gs=['pendapatan','belanja','tkdd'];charts.donut=new Chart(document.getElementById('cDonut'),{type:'doughnut',data:{labels:gs.map(g=>GRP[g]),datasets:[{data:gs.map(g=>sg(c,g).real/1e9),backgroundColor:gs.map(g=>GC[g].bar),borderWidth:2,borderColor:'#fff',hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'bottom',labels:{font:{size:10},usePointStyle:true,padding:12}}}}});
+// Donut: if Semua, show 3 groups; if filtered, show components within that group
+let donutLabels,donutData,donutColors;
+if(apbnKomp){
+  const pal=KOMP_PALETTES[apbnKomp];
+  const kompInGroup=Object.entries(KOMP).filter(([,v])=>v.g===apbnKomp).sort((a,b)=>a[1].o-b[1].o);
+  donutLabels=kompInGroup.map(([,v])=>v.l);
+  donutData=kompInGroup.map(([k])=>{const r=c.find(x=>x.kode===k);return r?r.real/1e9:0;});
+  donutColors=kompInGroup.map((_,i)=>pal[i%pal.length]);
+}else{
+  const gs=['pendapatan','belanja','tkdd'];
+  donutLabels=gs.map(g=>GRP[g]);donutData=gs.map(g=>sg(c,g).real/1e9);donutColors=gs.map(g=>GC[g].bar);
+}
+charts.donut=new Chart(document.getElementById('cDonut'),{type:'doughnut',data:{labels:donutLabels,datasets:[{data:donutData,backgroundColor:donutColors,borderWidth:2,borderColor:'#fff',hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'bottom',labels:{font:{size:10},usePointStyle:true,padding:12}},tooltip:{callbacks:{label:c=>c.label+': Rp '+c.parsed.toFixed(2)+' M'}}}}});
+
+const gs=['pendapatan','belanja','tkdd'];
 const aM=[...new Set(D.apbn.filter(r=>r.thn===apbnY).map(r=>r.bln))].sort((a,b)=>a-b),ds=gs.map(g=>({label:GRP[g],data:aM.map(m=>sg(gf(apbnY,m),g).real/1e9),borderColor:GC[g].bar,backgroundColor:GC[g].bar+'18',fill:true,tension:.35,pointRadius:4,borderWidth:2.5}));
 if(apbnCmp==='yoy'){const py=apbnY-1,pm=[...new Set(D.apbn.filter(r=>r.thn===py).map(r=>r.bln))];gs.forEach(g=>{ds.push({label:GRP[g]+' ('+py+')',data:aM.map(m=>pm.includes(m)?sg(gf(py,m),g).real/1e9:null),borderColor:GC[g].bar+'55',borderDash:[6,4],fill:false,tension:.35,pointRadius:3,borderWidth:2});});}
 charts.trend=new Chart(document.getElementById('cTrend'),{type:'line',data:{labels:aM.map(m=>BLN[m]),datasets:ds},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'top',labels:{font:{size:9},usePointStyle:true,padding:10}},tooltip:{mode:'index',intersect:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v.toLocaleString()}}}}});}
@@ -442,10 +463,11 @@ function initMap(id,styleFn,popupFn){
 
 // ═══ EVENTS ═══
 function bindEvents(){
-  const sY=document.getElementById('sY'),sM=document.getElementById('sM'),sCmp=document.getElementById('sCmp'),sMa=document.getElementById('sMa'),sMe=document.getElementById('sMe'),sGrp=document.getElementById('sGrp'),sACmp=document.getElementById('sACmp'),sRange=document.getElementById('sRange'),pillLoc=document.getElementById('pillLoc');
+  const sY=document.getElementById('sY'),sM=document.getElementById('sM'),sCmp=document.getElementById('sCmp'),sKomp=document.getElementById('sKomp'),sMa=document.getElementById('sMa'),sMe=document.getElementById('sMe'),sGrp=document.getElementById('sGrp'),sACmp=document.getElementById('sACmp'),sRange=document.getElementById('sRange'),pillLoc=document.getElementById('pillLoc');
   if(sY)sY.onchange=e=>{apbnY=+e.target.value;apbnM=Math.max(...D.apbn.filter(r=>r.thn===apbnY).map(r=>r.bln));render();};
   if(sM)sM.onchange=e=>{apbnM=+e.target.value;render();};
   if(sCmp)sCmp.onchange=e=>{apbnCmp=e.target.value;render();};
+  if(sKomp)sKomp.onchange=e=>{apbnKomp=e.target.value;render();};
   if(sMa)sMa.onchange=e=>{apbdM=+e.target.value;render();};
   if(sMe)sMe.onchange=e=>{apbdMetric=e.target.value;render();};
   if(sGrp)sGrp.onchange=e=>{apbdGrp=e.target.value;render();};
