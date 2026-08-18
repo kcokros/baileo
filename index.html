@@ -15,117 +15,76 @@
 *{margin:0;padding:0;box-sizing:border-box}html{font-size:15px}body{font-family:'Inter',system-ui,sans-serif;background:var(--surface);color:var(--text);min-height:100vh}
 .header{background:linear-gradient(135deg,var(--navy) 0%,var(--slate) 50%,var(--ocean) 100%);position:relative;overflow:hidden}
 .header::before{content:'';position:absolute;top:-50%;left:-20%;width:140%;height:200%;background:radial-gradient(ellipse at 30% 80%,rgba(33,150,243,.12) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(38,198,218,.08) 0%,transparent 50%);pointer-events:none}
-.header-inner{max-width:1440px;margin:0 auto;padding:1.4rem 2rem 0;position:relative;z-index:1}
-.header-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-.header-brand h1{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.45rem;color:#fff;letter-spacing:-0.02em;line-height:1.2}
-.header-brand h1 span{display:block;font-weight:500;font-size:.78rem;color:rgba(255,255,255,.5);letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
-.header-brand .baileo-mark{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:2px;display:block}
-.header-brand .baileo-acronym{font-size:.58rem;font-weight:400;letter-spacing:.04em;color:rgba(255,255,255,.22);margin-top:2px;display:block;text-transform:none;font-family:'Inter',sans-serif}
-.cutoff-badge{background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.8);font-size:.75rem;font-weight:500;padding:.3rem .7rem;border-radius:99px;font-family:'JetBrains Mono',monospace}
-.source-tabs{display:flex;gap:0;margin-top:1.2rem}
-.source-tab{padding:.6rem 1.3rem;font-size:.8rem;font-weight:600;color:rgba(255,255,255,.4);border-radius:var(--radius) var(--radius) 0 0;cursor:default;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif}
-.source-tab.active{background:var(--surface);color:var(--ocean)}
-.source-tab.disabled{opacity:.4}
-.source-tab.disabled::after{content:'Segera';font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:var(--gold);color:var(--navy);padding:1px 5px;border-radius:4px;margin-left:5px;vertical-align:middle}
+.hi{max-width:1440px;margin:0 auto;padding:1.4rem 2rem 0;position:relative;z-index:1}
+.ht{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.hb h1{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.45rem;color:#fff;letter-spacing:-0.02em;line-height:1.2}
+.hb h1 span{display:block;font-weight:500;font-size:.78rem;color:rgba(255,255,255,.5);letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
+.hb .bm{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:2px;display:block}
+.hb .ba{font-size:.58rem;font-weight:400;letter-spacing:.04em;color:rgba(255,255,255,.22);margin-top:2px;display:block;text-transform:none;font-family:'Inter',sans-serif}
+.cb{background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.8);font-size:.75rem;font-weight:500;padding:.3rem .7rem;border-radius:99px;font-family:'JetBrains Mono',monospace}
+.st{display:flex;gap:0;margin-top:1.2rem}.stb{padding:.6rem 1.3rem;font-size:.8rem;font-weight:600;color:rgba(255,255,255,.4);border-radius:var(--radius) var(--radius) 0 0;cursor:pointer;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif}.stb.active{background:var(--surface);color:var(--ocean)}.stb.disabled{opacity:.4;cursor:default}.stb.disabled::after{content:'Segera';font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:var(--gold);color:var(--navy);padding:1px 5px;border-radius:4px;margin-left:5px;vertical-align:middle}
 .sub-tabs{display:flex;gap:2px;background:var(--card);border-bottom:1.5px solid var(--border);max-width:1440px;margin:0 auto;padding:0 2rem}
-.sub-tab{padding:.7rem 1.2rem;font-size:.8rem;font-weight:600;color:var(--sub);cursor:pointer;border-bottom:2.5px solid transparent;transition:all .15s;font-family:'Plus Jakarta Sans',sans-serif}
-.sub-tab:hover{color:var(--text)}.sub-tab.active{color:var(--ocean);border-bottom-color:var(--ocean)}
+.stab{padding:.7rem 1.2rem;font-size:.8rem;font-weight:600;color:var(--sub);cursor:pointer;border-bottom:2.5px solid transparent;transition:all .15s;font-family:'Plus Jakarta Sans',sans-serif}.stab:hover{color:var(--text)}.stab.active{color:var(--ocean);border-bottom-color:var(--ocean)}
 .main{max-width:1440px;margin:0 auto;padding:1.5rem 2rem 3rem}
 .controls{display:flex;align-items:center;gap:.7rem;margin-bottom:1.4rem;flex-wrap:wrap}
-.control-group{display:flex;align-items:center;gap:.35rem}
-.control-group label{font-size:.72rem;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.04em}
-.control-group select{font-family:'Inter',sans-serif;font-size:.82rem;font-weight:500;padding:.38rem .65rem;border:1.5px solid var(--border);border-radius:8px;background:var(--card);color:var(--text);cursor:pointer;outline:none}
-.control-group select:focus{border-color:var(--ocean)}
+.cg{display:flex;align-items:center;gap:.35rem}.cg label{font-size:.72rem;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.04em}.cg select{font-family:'Inter',sans-serif;font-size:.82rem;font-weight:500;padding:.38rem .65rem;border:1.5px solid var(--border);border-radius:8px;background:var(--card);color:var(--text);cursor:pointer;outline:none}.cg select:focus{border-color:var(--ocean)}
 .spacer{flex:1}
-.toggle-btn{font-family:'Inter',sans-serif;font-size:.78rem;font-weight:600;padding:.4rem .9rem;border:1.5px solid var(--border);border-radius:8px;background:var(--card);color:var(--sub);cursor:pointer;transition:all .2s}
-.toggle-btn.active{background:var(--ocean);border-color:var(--ocean);color:#fff}
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;margin-bottom:1.4rem}
-.kpi-card{background:var(--card);border-radius:var(--radius);padding:1.1rem 1.2rem;box-shadow:var(--shadow);border:1px solid var(--border);position:relative;overflow:hidden}
-.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.kpi-card.c-green::before{background:var(--mint)}.kpi-card.c-red::before{background:var(--coral)}.kpi-card.c-blue::before{background:var(--sky)}.kpi-card.c-gold::before{background:var(--gold)}.kpi-card.c-purple::before{background:var(--purple)}.kpi-card.c-cyan::before{background:var(--cyan)}
-.kpi-label{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--sub);margin-bottom:.5rem}
-.kpi-value{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.55rem;font-weight:800;letter-spacing:-0.03em;color:var(--text);line-height:1.1}
-.kpi-value .unit{font-size:.68rem;font-weight:600;color:var(--sub);margin-left:2px}
-.kpi-sub{display:flex;align-items:center;gap:.5rem;margin-top:.45rem;font-size:.72rem;color:var(--sub);flex-wrap:wrap}
-.kpi-pagu{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted)}
-.kpi-persen{font-weight:700;padding:2px 6px;border-radius:5px;font-size:.7rem;font-family:'JetBrains Mono',monospace}
-.persen-low{background:#FFF3E0;color:#E65100}.persen-mid{background:#E3F2FD;color:#1565C0}.persen-high{background:#E8F5E9;color:#2E7D32}
-.kpi-yoy{font-size:.7rem;font-weight:600;font-family:'JetBrains Mono',monospace}.yoy-up{color:var(--mint)}.yoy-down{color:var(--coral)}
+.tbtn{font-family:'Inter',sans-serif;font-size:.78rem;font-weight:600;padding:.4rem .9rem;border:1.5px solid var(--border);border-radius:8px;background:var(--card);color:var(--sub);cursor:pointer;transition:all .2s}.tbtn.active{background:var(--ocean);border-color:var(--ocean);color:#fff}
+.kg{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem;margin-bottom:1.4rem}
+.kc{background:var(--card);border-radius:var(--radius);padding:1rem 1.1rem;box-shadow:var(--shadow);border:1px solid var(--border);position:relative;overflow:hidden}.kc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kc.cg1::before{background:var(--mint)}.kc.cr::before{background:var(--coral)}.kc.cb2::before{background:var(--sky)}.kc.cgo::before{background:var(--gold)}.kc.cp::before{background:var(--purple)}.kc.cc::before{background:var(--cyan)}
+.kl{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--sub);margin-bottom:.4rem}
+.kv{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.45rem;font-weight:800;letter-spacing:-0.03em;color:var(--text);line-height:1.1}.kv .u{font-size:.65rem;font-weight:600;color:var(--sub);margin-left:2px}
+.ks{display:flex;align-items:center;gap:.5rem;margin-top:.4rem;font-size:.7rem;color:var(--sub);flex-wrap:wrap}
+.kpa{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted)}
+.kpe{font-weight:700;padding:2px 6px;border-radius:5px;font-size:.68rem;font-family:'JetBrains Mono',monospace}
+.pl{background:#FFF3E0;color:#E65100}.pm{background:#E3F2FD;color:#1565C0}.ph{background:#E8F5E9;color:#2E7D32}
+.yoy{font-size:.68rem;font-weight:600;font-family:'JetBrains Mono',monospace}.yu{color:var(--mint)}.yd{color:var(--coral)}
 .panels{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.4rem}
 .panel{background:var(--card);border-radius:var(--radius);padding:1.2rem;box-shadow:var(--shadow);border:1px solid var(--border)}
-.panel-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:.85rem;font-weight:700;color:var(--text);margin-bottom:.9rem}
-.panel-sub{font-size:.72rem;color:var(--sub);margin-top:-.5rem;margin-bottom:.9rem}
-.panel-full{grid-column:1/-1}
-.chart-wrap{position:relative;width:100%}.chart-wrap canvas{width:100%!important}
-.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-table.dt{width:100%;border-collapse:collapse;font-size:.78rem}
-table.dt thead th{font-family:'Plus Jakarta Sans',sans-serif;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--sub);padding:.6rem .7rem;text-align:right;border-bottom:2px solid var(--border);white-space:nowrap}
-table.dt thead th:first-child{text-align:left}
-table.dt tbody td{padding:.55rem .7rem;text-align:right;font-family:'JetBrains Mono',monospace;font-size:.76rem;border-bottom:1px solid var(--border);white-space:nowrap}
-table.dt tbody td:first-child{text-align:left;font-family:'Inter',sans-serif;font-weight:500;color:var(--text)}
-table.dt tbody tr.grp td{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.8rem;color:var(--text);background:var(--surface);border-bottom:1.5px solid var(--border);padding-top:.7rem}
+.pt{font-family:'Plus Jakarta Sans',sans-serif;font-size:.85rem;font-weight:700;color:var(--text);margin-bottom:.9rem}
+.ps{font-size:.72rem;color:var(--sub);margin-top:-.5rem;margin-bottom:.9rem}
+.pf{grid-column:1/-1}
+.cw{position:relative;width:100%}.cw canvas{width:100%!important}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table.dt{width:100%;border-collapse:collapse;font-size:.76rem}
+table.dt thead th{font-family:'Plus Jakarta Sans',sans-serif;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--sub);padding:.55rem .6rem;text-align:right;border-bottom:2px solid var(--border);white-space:nowrap}table.dt thead th:first-child{text-align:left}
+table.dt tbody td{padding:.5rem .6rem;text-align:right;font-family:'JetBrains Mono',monospace;font-size:.74rem;border-bottom:1px solid var(--border);white-space:nowrap}table.dt tbody td:first-child{text-align:left;font-family:'Inter',sans-serif;font-weight:500;color:var(--text)}
+table.dt tbody tr.grp td{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.78rem;color:var(--text);background:var(--surface);border-bottom:1.5px solid var(--border)}
 table.dt tbody tr:hover{background:#F8FAFD}
-.bar-cell{display:flex;align-items:center;gap:.4rem;justify-content:flex-end}
-.bar-track{width:55px;height:5px;background:var(--surface);border-radius:3px;overflow:hidden;flex-shrink:0}
-.bar-fill{height:100%;border-radius:3px;transition:width .4s ease}
+.bc{display:flex;align-items:center;gap:.4rem;justify-content:flex-end}.bt{width:50px;height:5px;background:var(--surface);border-radius:3px;overflow:hidden;flex-shrink:0}.bf{height:100%;border-radius:3px;transition:width .4s ease}
 .footer{max-width:1440px;margin:0 auto;padding:1rem 2rem;text-align:center;font-size:.7rem;color:var(--muted);border-top:1px solid var(--border)}
 .loading{display:flex;align-items:center;justify-content:center;min-height:50vh;gap:.7rem;color:var(--sub);font-weight:500}
-.spinner{width:22px;height:22px;border:3px solid var(--border);border-top-color:var(--ocean);border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.error-msg{background:#FFF3F3;border:1px solid #FECACA;border-radius:var(--radius);padding:1.5rem;text-align:center;color:var(--coral);font-weight:500;margin:2rem}
+.spinner{width:22px;height:22px;border:3px solid var(--border);border-top-color:var(--ocean);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.errmsg{background:#FFF3F3;border:1px solid #FECACA;border-radius:var(--radius);padding:1.5rem;text-align:center;color:var(--coral);font-weight:500;margin:2rem}
 .inflasi-latest{display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:1.4rem}
-.inflasi-chip{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;box-shadow:var(--shadow);min-width:130px}
-.inflasi-chip .ic-loc{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--sub);margin-bottom:.3rem}
-.inflasi-chip .ic-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.3rem;font-weight:800}
-.inflasi-chip .ic-mom{font-size:.7rem;font-family:'JetBrains Mono',monospace;color:var(--muted);margin-top:.2rem}
-
-/* Map */
-.map-container{height:420px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
-.map-legend{display:flex;align-items:center;gap:.5rem;margin-top:.7rem;font-size:.7rem;color:var(--sub)}
-.map-legend .lg-bar{display:flex;height:10px;border-radius:3px;overflow:hidden;flex:1;max-width:200px}
-.map-legend .lg-bar span{flex:1}
-.map-legend .lg-labels{display:flex;justify-content:space-between;flex:1;max-width:200px;font-family:'JetBrains Mono',monospace;font-size:.65rem}
-.leaflet-popup-content-wrapper{border-radius:10px!important;font-family:'Inter',sans-serif;font-size:.8rem}
-.leaflet-popup-content{margin:10px 14px!important}
-.popup-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.85rem;margin-bottom:6px}
-.popup-row{display:flex;justify-content:space-between;gap:1rem;padding:2px 0;font-size:.75rem}
-.popup-row .pr-label{color:var(--sub)}.popup-row .pr-val{font-family:'JetBrains Mono',monospace;font-weight:600}
-
-/* Analisis */
-.insight-box{background:linear-gradient(135deg,#EBF5FF,#F0F7FF);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.2rem;margin-bottom:1rem;font-size:.82rem;color:var(--slate);line-height:1.6}
-.insight-box strong{color:var(--text)}
-.score-bar-wrap{display:flex;align-items:center;gap:.6rem;margin:.3rem 0}
-.score-bar-track{flex:1;height:8px;background:var(--surface);border-radius:4px;overflow:hidden;max-width:120px}
-.score-bar-fill{height:100%;border-radius:4px}
-.score-val{font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;min-width:35px}
-
-@media(max-width:900px){.panels{grid-template-columns:1fr}.main{padding:1rem}.header-inner{padding:1rem 1rem 0}.sub-tabs{padding:0 1rem}.map-container{height:320px}}
-@media(max-width:600px){html{font-size:14px}.kpi-grid{grid-template-columns:1fr 1fr}.kpi-value{font-size:1.25rem}.header-brand h1{font-size:1.15rem}.sub-tab{padding:.6rem .7rem;font-size:.75rem}}
+.ic{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.65rem .9rem;box-shadow:var(--shadow);min-width:125px}.ic .il{font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--sub);margin-bottom:.25rem}.ic .iv{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.2rem;font-weight:800}.ic .im{font-size:.68rem;font-family:'JetBrains Mono',monospace;color:var(--muted);margin-top:.15rem}
+.mc{height:400px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+.ml{display:flex;align-items:center;gap:.5rem;margin-top:.6rem;font-size:.68rem;color:var(--sub)}.ml .lb{display:flex;height:10px;border-radius:3px;overflow:hidden;flex:1;max-width:180px}.ml .lb span{flex:1}
+.leaflet-popup-content-wrapper{border-radius:10px!important;font-family:'Inter',sans-serif;font-size:.78rem}.leaflet-popup-content{margin:10px 14px!important}
+.ppt{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.82rem;margin-bottom:5px}.ppr{display:flex;justify-content:space-between;gap:1rem;padding:2px 0;font-size:.73rem}.ppr .pl2{color:var(--sub)}.ppr .pv2{font-family:'JetBrains Mono',monospace;font-weight:600}
+.insight{background:linear-gradient(135deg,#EBF5FF,#F0F7FF);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.2rem;margin-bottom:1rem;font-size:.8rem;color:var(--slate);line-height:1.6}.insight strong{color:var(--text)}
+.sbw{display:flex;align-items:center;gap:.5rem;margin:.2rem 0}.sbt{flex:1;height:7px;background:var(--surface);border-radius:4px;overflow:hidden;max-width:110px}.sbf{height:100%;border-radius:4px}.sv{font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:700;min-width:32px}
+@media(max-width:900px){.panels{grid-template-columns:1fr}.main{padding:1rem}.hi{padding:1rem 1rem 0}.sub-tabs{padding:0 1rem}.mc{height:300px}}
+@media(max-width:600px){html{font-size:14px}.kg{grid-template-columns:1fr 1fr}.kv{font-size:1.2rem}.hb h1{font-size:1.15rem}.stab{padding:.6rem .7rem;font-size:.73rem}}
 </style>
 </head>
 <body>
-<header class="header"><div class="header-inner">
-<div class="header-top">
-<div class="header-brand"><h1><span class="baileo-mark">BAILEO</span><span>Kanwil DJPb Provinsi Maluku</span>Dashboard Kewilayahan<span class="baileo-acronym">Bingkai Analitik Interaktif Laporan Ekonomi Operasional</span></h1></div>
-<div class="header-meta"><span class="cutoff-badge" id="cutoffBadge">—</span></div>
-</div>
-<div class="source-tabs">
-<div class="source-tab active">DJPb</div>
-<div class="source-tab disabled">BPS</div>
-<div class="source-tab disabled">Bank Indonesia</div>
-</div>
-</div></header>
-<nav class="sub-tabs" id="subTabs">
-<div class="sub-tab active" data-tab="apbn">APBN</div>
-<div class="sub-tab" data-tab="apbd">APBD</div>
-<div class="sub-tab" data-tab="inflasi">Inflasi</div>
-<div class="sub-tab" data-tab="analisis">Analisis</div>
-</nav>
-<main class="main" id="mainContent"><div class="loading" id="loadingScreen"><div class="spinner"></div><span>Memuat data…</span></div></main>
-<footer class="footer">Sumber data: DJPb · BPS · Bank Indonesia</footer>
+<header class="header"><div class="hi"><div class="ht">
+<div class="hb"><h1><span class="bm">BAILEO</span><span>Kanwil DJPb Provinsi Maluku</span>Dashboard Kewilayahan<span class="ba">Bingkai Analitik Interaktif Laporan Ekonomi Operasional</span></h1></div>
+<div><span class="cb" id="cutoffBadge">—</span></div>
+</div><div class="st">
+<div class="stb active" id="srcDJPb">DJPb</div>
+<div class="stb" id="srcBPS">BPS</div>
+<div class="stb disabled">Bank Indonesia</div>
+</div></div></header>
+<nav class="sub-tabs" id="subTabs"></nav>
+<main class="main" id="mainContent"><div class="loading"><div class="spinner"></div><span>Memuat data…</span></div></main>
+<footer class="footer">Sumber data: DJPb (OMSPAN/MEBE) · BPS · Bank Indonesia — Data dimuat otomatis dari CSV repositori</footer>
 
 <script>
-const CSV_APBN='apbn.csv',CSV_APBD='apbd.csv',CSV_INFLASI='inflasi.csv',GEOJSON_PATH='maluku.geojson';
+// ═══ CONFIG ═══
+const FILES={apbn:'apbn.csv',apbd:'apbd.csv',inflasi:'inflasi.csv',pdrb:'pdrb.csv',penduduk:'penduduk.csv',kemiskinan:'kemiskinan.csv',ipm:'ipm.csv',pengangguran:'pengangguran.csv',gini:'gini.csv',geo:'maluku.geojson'};
 const KOMP={p_pajak_dn:{l:'Pajak Dalam Negeri',g:'pendapatan',o:1},p_pajak_ln:{l:'Pajak Perdagangan Intl.',g:'pendapatan',o:2},p_pnbp_lain:{l:'PNBP Lainnya',g:'pendapatan',o:3},p_blu:{l:'Pendapatan BLU',g:'pendapatan',o:4},b_pegawai:{l:'Belanja Pegawai',g:'belanja',o:5},b_barang:{l:'Belanja Barang',g:'belanja',o:6},b_modal:{l:'Belanja Modal',g:'belanja',o:7},b_bansos:{l:'Bantuan Sosial',g:'belanja',o:8},b_dbh:{l:'Dana Bagi Hasil',g:'tkdd',o:9},b_dakfisik:{l:'DAK Fisik',g:'tkdd',o:10},b_daknonfisik:{l:'DAK Non Fisik',g:'tkdd',o:11},b_dau:{l:'Dana Alokasi Umum',g:'tkdd',o:12},b_infis:{l:'Dana Insentif Daerah',g:'tkdd',o:13},b_danadesa:{l:'Dana Desa',g:'tkdd',o:14}};
 const GRP={pendapatan:'Pendapatan Negara',belanja:'Belanja K/L',tkdd:'Transfer ke Daerah & Dana Desa'};
 const GC={pendapatan:{bar:'#66BB6A'},belanja:{bar:'#EF5350'},tkdd:{bar:'#2196F3'}};
@@ -133,374 +92,276 @@ const BLN=['','Jan','Feb','Mar','Apr','Mei','Jun','Jul','Ags','Sep','Okt','Nov',
 const BLN_F=['','Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
 const LOC_C={'Ambon':'#2196F3','Tual':'#EF5350','Maluku':'#1B3A5C','MalukuTengah':'#7E57C2','Nasional':'#94A3B8'};
 const LOC_L={'Ambon':'Kota Ambon','Tual':'Kota Tual','Maluku':'Prov. Maluku','MalukuTengah':'Maluku Tengah','Nasional':'Nasional'};
+const KAB_PAL=['#2196F3','#EF5350','#66BB6A','#F5A623','#7E57C2','#26C6DA','#FF7043','#8D6E63','#78909C','#EC407A','#1B3A5C'];
+function w2a(w){return w.startsWith('Kota')?w:'Kabupaten '+w;}
+function b2a(n){return n==='Ambon'?'Kota Ambon':n==='Tual'?'Kota Tual':'Kabupaten '+n;}
+function b2w(n){return n==='Ambon'?'Kota Ambon':n==='Tual'?'Kota Tual':n;}
+const PEMDA_INF={'Kota Ambon':'Ambon','Kota Tual':'Tual','Kabupaten Maluku Tengah':'MalukuTengah'};
 
-// Map WADMKK → APBD nama_pemda
-function wadmkkToAPBD(w){return w.startsWith('Kota')?w:'Kabupaten '+w;}
-// Map APBD nama_pemda → inflasi loc
-const PEMDA_INFLASI={'Kota Ambon':'Ambon','Kota Tual':'Tual','Kabupaten Maluku Tengah':'MalukuTengah'};
+// ═══ STATE ═══
+let D={apbn:[],apbd:[],inflasi:[],pdrb:[],penduduk:[],kemiskinan:[],ipm:[],pengangguran:[],gini:[],geo:null};
+let source='djpb',tab='apbn',apbnY,apbnM,apbnYoY=false,apbdM,apbdMetric='pendapatan';
+let charts={},lmap=null,glayer=null;
 
-let apbnData=[],apbdData=[],inflasiData=[],geoData=null;
-let activeTab='apbn',apbnYear,apbnMonth,apbnYoY=false,apbdMonth,apbdMetric='pendapatan';
-let charts={},leafletMap=null,geoLayer=null;
-
-async function fetchCSV(p){const r=await fetch(p);if(!r.ok)throw new Error(p);return Papa.parse((await r.text()).trim(),{header:true,skipEmptyLines:true,dynamicTyping:false}).data;}
-
+// ═══ LOAD ═══
+async function fcsv(p){const r=await fetch(p);if(!r.ok)throw new Error(p);return Papa.parse((await r.text()).trim(),{header:true,skipEmptyLines:true,dynamicTyping:false}).data;}
 async function loadAll(){
   try{
-    const[a,b,c,g]=await Promise.all([
-      fetchCSV(CSV_APBN).catch(()=>[]),fetchCSV(CSV_APBD).catch(()=>[]),fetchCSV(CSV_INFLASI).catch(()=>[]),
-      fetch(GEOJSON_PATH).then(r=>r.ok?r.json():null).catch(()=>null)
+    const[a,b,c,p,pop,k,ipm,ng,gi,geo]=await Promise.all([
+      fcsv(FILES.apbn).catch(()=>[]),fcsv(FILES.apbd).catch(()=>[]),fcsv(FILES.inflasi).catch(()=>[]),
+      fcsv(FILES.pdrb).catch(()=>[]),fcsv(FILES.penduduk).catch(()=>[]),fcsv(FILES.kemiskinan).catch(()=>[]),
+      fcsv(FILES.ipm).catch(()=>[]),fcsv(FILES.pengangguran).catch(()=>[]),fcsv(FILES.gini).catch(()=>[]),
+      fetch(FILES.geo).then(r=>r.ok?r.json():null).catch(()=>null)
     ]);
-    apbnData=a.filter(r=>r.thang&&r.komp_ang).map(r=>({thn:+r.thang,bln:+r.bulan,cut:r.tgl_cutoff,kode:r.komp_ang.trim(),pagu:+r.pagu_target||0,real:+r.realisasi||0}));
-    apbdData=b.filter(r=>r.thang).map(r=>({thn:+r.thang,bln:+r.bulan,cut:r.tgl_cutoff,pemda:r.nama_pemda.trim(),pendapatan:+r.pendapatan||0,belanja:+r.belanja||0,pembiayaan:+r.pembiayaan||0,silpa:+r.SILPA||0}));
-    inflasiData=c.filter(r=>r.waktu).map(r=>({waktu:r.waktu.trim(),loc:r.nama_pemda.trim(),mom:r.inflasi_bulanan!==''&&r.inflasi_bulanan!=null?+r.inflasi_bulanan:null,yoy:r.inflasi_tahunan!==''&&r.inflasi_tahunan!=null?+r.inflasi_tahunan:null}));
-    geoData=g;
-    if(apbnData.length){const yrs=[...new Set(apbnData.map(r=>r.thn))].sort((a,b)=>b-a);apbnYear=yrs[0];apbnMonth=Math.max(...apbnData.filter(r=>r.thn===apbnYear).map(r=>r.bln));}
-    if(apbdData.length)apbdMonth=Math.max(...apbdData.map(r=>r.bln));
+    D.apbn=a.filter(r=>r.thang&&r.komp_ang).map(r=>({thn:+r.thang,bln:+r.bulan,cut:r.tgl_cutoff,kode:r.komp_ang.trim(),pagu:+r.pagu_target||0,real:+r.realisasi||0}));
+    D.apbd=b.filter(r=>r.thang).map(r=>({thn:+r.thang,bln:+r.bulan,cut:r.tgl_cutoff,pemda:r.nama_pemda.trim(),pendapatan:+r.pendapatan||0,belanja:+r.belanja||0,pembiayaan:+r.pembiayaan||0,silpa:+r.SILPA||0}));
+    D.inflasi=c.filter(r=>r.waktu).map(r=>({waktu:r.waktu.trim(),loc:r.nama_pemda.trim(),mom:r.inflasi_bulanan!==''&&r.inflasi_bulanan!=null?+r.inflasi_bulanan:null,yoy:r.inflasi_tahunan!==''&&r.inflasi_tahunan!=null?+r.inflasi_tahunan:null}));
+    D.pdrb=p.map(r=>({kk:r.kab_kota.trim(),adhb:+r.pdrb_adhb_q1||0,qtq:+r.growth_qtq_q1||0}));
+    D.penduduk=pop.map(r=>({kk:r.kab_kota.trim(),p24:+r.pop_2024||0,p25:+r.pop_2025||0,p26:+r.pop_2026||0}));
+    D.kemiskinan=k.map(r=>({kk:r.kab_kota.trim(),m23:+r.miskin_2023||0,m24:+r.miskin_2024||0,m25:+r.miskin_2025||0}));
+    D.ipm=ipm.map(r=>({kk:r.kab_kota.trim(),i23:+r.ipm_2023||0,i24:+r.ipm_2024||0,i25:+r.ipm_2025||0}));
+    D.pengangguran=ng.map(r=>({kk:r.kab_kota.trim(),n23:+r.nganggur_2023||0,n24:+r.nganggur_2024||0,n25:+r.nganggur_2025||0}));
+    D.gini=gi.map(r=>({kk:r.kab_kota.trim(),g23:+r.gini_2023||0,g24:+r.gini_2024||0,g25:+r.gini_2025||0}));
+    D.geo=geo;
+    if(D.apbn.length){const yrs=[...new Set(D.apbn.map(r=>r.thn))].sort((a,b)=>b-a);apbnY=yrs[0];apbnM=Math.max(...D.apbn.filter(r=>r.thn===apbnY).map(r=>r.bln));}
+    if(D.apbd.length)apbdM=Math.max(...D.apbd.map(r=>r.bln));
     render();
-  }catch(e){document.getElementById('loadingScreen').innerHTML='<div class="error-msg">Gagal memuat: '+e.message+'</div>';}
+  }catch(e){document.getElementById('mainContent').innerHTML='<div class="errmsg">Gagal memuat: '+e.message+'</div>';}
 }
 
+// ═══ HELPERS ═══
 function fmt(n){if(Math.abs(n)>=1e12)return(n/1e12).toFixed(2);if(Math.abs(n)>=1e9)return(n/1e9).toFixed(2);if(Math.abs(n)>=1e6)return(n/1e6).toFixed(1);return n.toLocaleString('id-ID');}
 function fU(n){if(Math.abs(n)>=1e12)return'T';if(Math.abs(n)>=1e9)return'M';if(Math.abs(n)>=1e6)return'Jt';return'';}
 function fM(n){return'Rp '+(n/1e9).toFixed(2)+' M';}
-function pC(p){return p<20?'persen-low':p<50?'persen-mid':'persen-high';}
-function bCol(p){return p<20?'#FF8F00':p<50?'#2196F3':'#66BB6A';}
-function gf(t,b){return apbnData.filter(r=>r.thn===t&&r.bln===b);}
+function pCl(p){return p<20?'pl':p<50?'pm':'ph';}
+function bCo(p){return p<20?'#FF8F00':p<50?'#2196F3':'#66BB6A';}
+function gf(t,b){return D.apbn.filter(r=>r.thn===t&&r.bln===b);}
 function sg(rows,g){return rows.filter(r=>KOMP[r.kode]&&KOMP[r.kode].g===g).reduce((a,r)=>({pagu:a.pagu+r.pagu,real:a.real+r.real}),{pagu:0,real:0});}
-function destroyCharts(){Object.values(charts).forEach(c=>c.destroy());charts={};}
-function destroyMap(){if(leafletMap){leafletMap.remove();leafletMap=null;geoLayer=null;}}
+function dC(){Object.values(charts).forEach(c=>c.destroy());charts={};}
+function dM(){if(lmap){lmap.remove();lmap=null;glayer=null;}}
+function cCol(v,mn,mx){if(v==null)return'#E2E8F0';const t=mx===mn?.5:Math.max(0,Math.min(1,(v-mn)/(mx-mn)));const cs=[[227,242,253],[66,165,245],[21,101,192]];const i=t<.5?0:1,lt=t<.5?t*2:(t-.5)*2;return`rgb(${Math.round(cs[i][0]+(cs[i+1][0]-cs[i][0])*lt)},${Math.round(cs[i][1]+(cs[i+1][1]-cs[i][1])*lt)},${Math.round(cs[i][2]+(cs[i+1][2]-cs[i][2])*lt)})`;}
+function sCol(s){return s>=70?'#2E7D32':s>=50?'#66BB6A':s>=30?'#FF8F00':'#C62828';}
+function getInf(loc){const rows=D.inflasi.filter(r=>r.loc===loc&&r.yoy!==null).sort((a,b)=>a.waktu.localeCompare(b.waktu));return rows.length?rows[rows.length-1].yoy:null;}
+function bpsLookup(kk,arr,field){const r=arr.find(x=>x.kk===kk);return r?r[field]:null;}
 
-function choroplethColor(val,min,max){
-  if(val==null)return'#E2E8F0';
-  const t=max===min?0.5:Math.max(0,Math.min(1,(val-min)/(max-min)));
-  const colors=[[227,242,253],[66,165,245],[21,101,192]];
-  const i=t<0.5?0:1, lt=t<0.5?t*2:(t-0.5)*2;
-  const r=Math.round(colors[i][0]+(colors[i+1][0]-colors[i][0])*lt);
-  const g=Math.round(colors[i][1]+(colors[i+1][1]-colors[i][1])*lt);
-  const b=Math.round(colors[i][2]+(colors[i+1][2]-colors[i][2])*lt);
-  return`rgb(${r},${g},${b})`;
-}
-function scoreColor(s){
-  if(s>=70)return'#2E7D32';if(s>=50)return'#66BB6A';if(s>=30)return'#FF8F00';return'#C62828';
+// ═══ TABS ═══
+const DJPB_TABS=[{id:'apbn',l:'APBN'},{id:'apbd',l:'APBD'},{id:'inflasi',l:'Inflasi'},{id:'analisis',l:'Analisis'}];
+const BPS_TABS=[{id:'profil',l:'Profil Wilayah'},{id:'analisis',l:'Analisis'}];
+
+function setSubTabs(){
+  const tabs=source==='djpb'?DJPB_TABS:BPS_TABS;
+  if(!tabs.find(t=>t.id===tab))tab=tabs[0].id;
+  document.getElementById('subTabs').innerHTML=tabs.map(t=>'<div class="stab'+(t.id===tab?' active':'')+'" data-tab="'+t.id+'">'+t.l+'</div>').join('');
 }
 
 // ═══ RENDER ═══
 function render(){
-  destroyCharts();destroyMap();
+  dC();dM();setSubTabs();
   const main=document.getElementById('mainContent');
-  let cutoff='—';
-  if(activeTab==='apbn'&&apbnData.length){const r=apbnData.find(r=>r.thn===apbnYear&&r.bln===apbnMonth);if(r)cutoff=r.cut;}
-  else if((activeTab==='apbd'||activeTab==='analisis')&&apbdData.length){const r=apbdData.find(r=>r.bln===apbdMonth);if(r)cutoff=r.cut;}
-  else if(activeTab==='inflasi'&&inflasiData.length)cutoff=inflasiData[inflasiData.length-1].waktu;
-  document.getElementById('cutoffBadge').textContent='Data s.d. '+cutoff;
-
-  if(activeTab==='apbn')main.innerHTML=renderAPBN();
-  else if(activeTab==='apbd')main.innerHTML=renderAPBD();
-  else if(activeTab==='inflasi')main.innerHTML=renderInflasi();
-  else main.innerHTML=renderAnalisis();
-  bindEvents();
-  if(activeTab==='apbn')drawAPBNCharts();
-  else if(activeTab==='apbd'){drawAPBDCharts();initAPBDMap();}
-  else if(activeTab==='inflasi')drawInflasiCharts();
-  else{drawAnalisisCharts();initAnalisisMap();}
+  document.getElementById('cutoffBadge').textContent='BAILEO';
+  if(source==='djpb'){
+    if(tab==='apbn')main.innerHTML=renderAPBN();
+    else if(tab==='apbd')main.innerHTML=renderAPBD();
+    else if(tab==='inflasi')main.innerHTML=renderInflasi();
+    else main.innerHTML=renderAnalisisDJPb();
+  }else{
+    if(tab==='profil')main.innerHTML=renderBPS();
+    else main.innerHTML=renderAnalisisFull();
+  }
+  bindEvents();bindCharts();
 }
 
-// ═══ APBN ═══
+function bindCharts(){
+  if(source==='djpb'){
+    if(tab==='apbn')drawAPBN();else if(tab==='apbd'){drawAPBD();initMap('mapApbd',apbdMapStyle,apbdPopup);}
+    else if(tab==='inflasi')drawInflasi();else{drawAnalDJPb();initMap('mapAnal',analMapStyle,analPopup);}
+  }else{
+    if(tab==='profil'){drawBPS();initMap('mapBPS',bpsMapStyle,bpsPopup);}
+    else{drawAnalFull();initMap('mapFull',fullMapStyle,fullPopup);}
+  }
+}
+
+// ═══ APBN (same as before, compact) ═══
 function renderAPBN(){
-  if(!apbnData.length)return'<div class="error-msg">File apbn.csv tidak ditemukan</div>';
-  const yrs=[...new Set(apbnData.map(r=>r.thn))].sort((a,b)=>b-a);
-  const mos=[...new Set(apbnData.filter(r=>r.thn===apbnYear).map(r=>r.bln))].sort((a,b)=>a-b);
-  const curr=gf(apbnYear,apbnMonth),prev=gf(apbnYear-1,apbnMonth);
-  const p=sg(curr,'pendapatan'),b=sg(curr,'belanja'),t=sg(curr,'tkdd');
-  const pp=sg(prev,'pendapatan'),bp=sg(prev,'belanja'),tp=sg(prev,'tkdd');
-  const totP=p.pagu+b.pagu+t.pagu,totR=p.real+b.real+t.real,serapan=totP?(totR/totP*100):0;
-  return`<div>
-  <div class="controls">
-    <div class="control-group"><label>Tahun</label><select id="sY">${yrs.map(y=>'<option value="'+y+'"'+(y===apbnYear?' selected':'')+'>'+y+'</option>').join('')}</select></div>
-    <div class="control-group"><label>s.d.</label><select id="sM">${mos.map(m=>'<option value="'+m+'"'+(m===apbnMonth?' selected':'')+'>'+BLN_F[m]+'</option>').join('')}</select></div>
-    <div class="spacer"></div><button class="toggle-btn ${apbnYoY?'active':''}" id="bYoY">⇄ YoY</button>
-  </div>
-  <div class="kpi-grid">${kpiCard('Pendapatan Negara',p,pp,'c-green')}${kpiCard('Belanja K/L',b,bp,'c-red')}${kpiCard('TKDD',t,tp,'c-blue')}
-    <div class="kpi-card c-gold"><div class="kpi-label">Total Serapan</div><div class="kpi-value">${serapan.toFixed(1)}<span class="unit">%</span></div><div class="kpi-sub"><span class="kpi-pagu">${fM(totR)} / ${fM(totP)}</span></div></div>
-  </div>
-  <div class="panels">
-    <div class="panel"><div class="panel-title">Pagu vs Realisasi</div><div class="chart-wrap"><canvas id="cBar" height="300"></canvas></div></div>
-    <div class="panel"><div class="panel-title">Komposisi Realisasi</div><div class="chart-wrap"><canvas id="cDonut" height="300"></canvas></div></div>
-    <div class="panel panel-full"><div class="panel-title">Tren Bulanan ${apbnYear}</div><div class="chart-wrap"><canvas id="cTrend" height="200"></canvas></div></div>
-  </div>
-  <div class="panel panel-full"><div class="panel-title">Rincian Pagu & Realisasi</div><div class="table-wrap">${apbnTable(curr,prev)}</div></div></div>`;
-}
-function kpiCard(title,d,prev,cls){const pct=d.pagu?(d.real/d.pagu*100):0;let yoy='';if(apbnYoY&&prev.real){const df=(d.real-prev.real)/prev.real*100;yoy='<span class="kpi-yoy '+(df>=0?'yoy-up':'yoy-down')+'">'+(df>=0?'▲':'▼')+' '+Math.abs(df).toFixed(1)+'% YoY</span>';}return'<div class="kpi-card '+cls+'"><div class="kpi-label">'+title+'</div><div class="kpi-value">'+fmt(d.real)+'<span class="unit">'+fU(d.real)+'</span></div><div class="kpi-sub"><span class="kpi-pagu">Pagu: '+fmt(d.pagu)+fU(d.pagu)+'</span><span class="kpi-persen '+pC(pct)+'">'+pct.toFixed(1)+'%</span>'+yoy+'</div></div>';}
-function apbnTable(curr,prev){const gs=['pendapatan','belanja','tkdd'];let h='<table class="dt"><thead><tr><th>Komponen</th><th>Pagu (M)</th><th>Realisasi (M)</th><th>%</th>';if(apbnYoY)h+='<th>Real '+(apbnYear-1)+' (M)</th><th>Δ YoY</th>';h+='<th style="width:75px">Serapan</th></tr></thead><tbody>';for(const g of gs){const gt=sg(curr,g),gp=sg(prev,g),gpc=gt.pagu?(gt.real/gt.pagu*100):0;h+='<tr class="grp"><td>'+GRP[g]+'</td><td>'+(gt.pagu/1e9).toFixed(2)+'</td><td>'+(gt.real/1e9).toFixed(2)+'</td><td><span class="kpi-persen '+pC(gpc)+'">'+gpc.toFixed(1)+'%</span></td>';if(apbnYoY)h+='<td>'+(gp.real/1e9).toFixed(2)+'</td><td>'+(gp.real?((gt.real-gp.real)/gp.real*100).toFixed(1)+'%':'—')+'</td>';h+='<td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:'+Math.min(gpc,100)+'%;background:'+GC[g].bar+'"></div></div></div></td></tr>';Object.entries(KOMP).filter(([,v])=>v.g===g).sort((a,b)=>a[1].o-b[1].o).forEach(([k,m])=>{const rw=curr.find(r=>r.kode===k);if(!rw)return;const pc=rw.pagu?(rw.real/rw.pagu*100):0,pr=prev.find(r=>r.kode===k);h+='<tr><td style="padding-left:1.5rem">'+m.l+'</td><td>'+(rw.pagu/1e9).toFixed(2)+'</td><td>'+(rw.real/1e9).toFixed(2)+'</td><td><span class="kpi-persen '+pC(pc)+'">'+pc.toFixed(1)+'%</span></td>';if(apbnYoY)h+='<td>'+(pr?(pr.real/1e9).toFixed(2):'—')+'</td><td>'+(pr&&pr.real?((rw.real-pr.real)/pr.real*100).toFixed(1)+'%':'—')+'</td>';h+='<td><div class="bar-cell"><div class="bar-track"><div class="bar-fill" style="width:'+Math.min(pc,100)+'%;background:'+bCol(pc)+'"></div></div></div></td></tr>';});}return h+'</tbody></table>';}
-function drawAPBNCharts(){const curr=gf(apbnYear,apbnMonth);const comps=Object.entries(KOMP).sort((a,b)=>a[1].o-b[1].o);charts.bar=new Chart(document.getElementById('cBar'),{type:'bar',data:{labels:comps.map(([,v])=>v.l),datasets:[{label:'Pagu',data:comps.map(([k])=>{const r=curr.find(x=>x.kode===k);return r?r.pagu/1e9:0;}),backgroundColor:'rgba(148,163,184,.3)',borderRadius:4,barPercentage:.7,categoryPercentage:.7},{label:'Realisasi',data:comps.map(([k])=>{const r=curr.find(x=>x.kode===k);return r?r.real/1e9:0;}),backgroundColor:comps.map(([,v])=>GC[v.g].bar),borderRadius:4,barPercentage:.7,categoryPercentage:.7}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{font:{family:'Inter',size:10},usePointStyle:true,pointStyle:'rectRounded',padding:14}},tooltip:{callbacks:{label:c=>c.dataset.label+': Rp '+c.parsed.y.toFixed(2)+' M'}}},scales:{x:{ticks:{font:{family:'Inter',size:8},maxRotation:45,minRotation:45},grid:{display:false}},y:{ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v.toLocaleString()},grid:{color:'#F1F5F9'},title:{display:true,text:'Miliar Rp',font:{family:'Inter',size:9,weight:'600'},color:'#94A3B8'}}}}});
-const gs=['pendapatan','belanja','tkdd'];charts.donut=new Chart(document.getElementById('cDonut'),{type:'doughnut',data:{labels:gs.map(g=>GRP[g]),datasets:[{data:gs.map(g=>sg(curr,g).real/1e9),backgroundColor:gs.map(g=>GC[g].bar),borderWidth:2,borderColor:'#fff',hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'bottom',labels:{font:{family:'Inter',size:10},usePointStyle:true,pointStyle:'circle',padding:14}},tooltip:{callbacks:{label:c=>c.label+': Rp '+c.parsed.toFixed(2)+' M'}}}}});
-const allM=[...new Set(apbnData.filter(r=>r.thn===apbnYear).map(r=>r.bln))].sort((a,b)=>a-b);const ds=gs.map(g=>({label:GRP[g],data:allM.map(m=>sg(gf(apbnYear,m),g).real/1e9),borderColor:GC[g].bar,backgroundColor:GC[g].bar+'18',fill:true,tension:.35,pointRadius:4,borderWidth:2.5}));if(apbnYoY){const py=apbnYear-1;const pm=[...new Set(apbnData.filter(r=>r.thn===py).map(r=>r.bln))].sort((a,b)=>a-b);gs.forEach(g=>{ds.push({label:GRP[g]+' ('+py+')',data:allM.map(m=>pm.includes(m)?sg(gf(py,m),g).real/1e9:null),borderColor:GC[g].bar+'55',borderDash:[6,4],fill:false,tension:.35,pointRadius:3,borderWidth:2});});}
-charts.trend=new Chart(document.getElementById('cTrend'),{type:'line',data:{labels:allM.map(m=>BLN[m]),datasets:ds},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'top',labels:{font:{family:'Inter',size:9},usePointStyle:true,pointStyle:'circle',padding:10}},tooltip:{mode:'index',intersect:false,callbacks:{label:c=>c.dataset.label+': Rp '+(c.parsed.y?.toFixed(2)||'—')+' M'}}},scales:{x:{grid:{display:false},ticks:{font:{family:'Inter',size:10}}},y:{grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v.toLocaleString()},title:{display:true,text:'Miliar Rp',font:{family:'Inter',size:9,weight:'600'},color:'#94A3B8'}}}}});}
+  if(!D.apbn.length)return'<div class="errmsg">apbn.csv tidak ditemukan</div>';
+  const yrs=[...new Set(D.apbn.map(r=>r.thn))].sort((a,b)=>b-a),mos=[...new Set(D.apbn.filter(r=>r.thn===apbnY).map(r=>r.bln))].sort((a,b)=>a-b);
+  const c=gf(apbnY,apbnM),pv=gf(apbnY-1,apbnM),p=sg(c,'pendapatan'),b=sg(c,'belanja'),t=sg(c,'tkdd'),pp=sg(pv,'pendapatan'),bp=sg(pv,'belanja'),tp=sg(pv,'tkdd');
+  const tP=p.pagu+b.pagu+t.pagu,tR=p.real+b.real+t.real,sr=tP?(tR/tP*100):0;
+  return`<div><div class="controls"><div class="cg"><label>Tahun</label><select id="sY">${yrs.map(y=>'<option value="'+y+'"'+(y===apbnY?' selected':'')+'>'+y+'</option>').join('')}</select></div><div class="cg"><label>s.d.</label><select id="sM">${mos.map(m=>'<option value="'+m+'"'+(m===apbnM?' selected':'')+'>'+BLN_F[m]+'</option>').join('')}</select></div><div class="spacer"></div><button class="tbtn ${apbnYoY?'active':''}" id="bYoY">⇄ YoY</button></div>
+  <div class="kg">${mkKpi('Pendapatan',p,pp,'cg1')}${mkKpi('Belanja K/L',b,bp,'cr')}${mkKpi('TKDD',t,tp,'cb2')}<div class="kc cgo"><div class="kl">Total Serapan</div><div class="kv">${sr.toFixed(1)}<span class="u">%</span></div><div class="ks"><span class="kpa">${fM(tR)} / ${fM(tP)}</span></div></div></div>
+  <div class="panels"><div class="panel"><div class="pt">Pagu vs Realisasi</div><div class="cw"><canvas id="cBar" height="300"></canvas></div></div><div class="panel"><div class="pt">Komposisi Realisasi</div><div class="cw"><canvas id="cDonut" height="300"></canvas></div></div><div class="panel pf"><div class="pt">Tren Bulanan ${apbnY}</div><div class="cw"><canvas id="cTrend" height="200"></canvas></div></div></div>
+  <div class="panel pf"><div class="pt">Rincian Pagu & Realisasi</div><div class="tw">${apbnTbl(c,pv)}</div></div></div>`;}
+function mkKpi(t,d,pv,cls){const pc=d.pagu?(d.real/d.pagu*100):0;let y='';if(apbnYoY&&pv.real){const df=(d.real-pv.real)/pv.real*100;y='<span class="yoy '+(df>=0?'yu':'yd')+'">'+(df>=0?'▲':'▼')+' '+Math.abs(df).toFixed(1)+'%</span>';}return'<div class="kc '+cls+'"><div class="kl">'+t+'</div><div class="kv">'+fmt(d.real)+'<span class="u">'+fU(d.real)+'</span></div><div class="ks"><span class="kpa">Pagu: '+fmt(d.pagu)+fU(d.pagu)+'</span><span class="kpe '+pCl(pc)+'">'+pc.toFixed(1)+'%</span>'+y+'</div></div>';}
+function apbnTbl(c,pv){const gs=['pendapatan','belanja','tkdd'];let h='<table class="dt"><thead><tr><th>Komponen</th><th>Pagu</th><th>Realisasi</th><th>%</th>'+(apbnYoY?'<th>'+(apbnY-1)+'</th><th>Δ</th>':'')+'<th style="width:70px"></th></tr></thead><tbody>';for(const g of gs){const gt=sg(c,g),gp=sg(pv,g),gpc=gt.pagu?(gt.real/gt.pagu*100):0;h+='<tr class="grp"><td>'+GRP[g]+'</td><td>'+(gt.pagu/1e9).toFixed(2)+'</td><td>'+(gt.real/1e9).toFixed(2)+'</td><td><span class="kpe '+pCl(gpc)+'">'+gpc.toFixed(1)+'%</span></td>'+(apbnYoY?'<td>'+(gp.real/1e9).toFixed(2)+'</td><td>'+(gp.real?((gt.real-gp.real)/gp.real*100).toFixed(1)+'%':'—')+'</td>':'')+'<td><div class="bc"><div class="bt"><div class="bf" style="width:'+Math.min(gpc,100)+'%;background:'+GC[g].bar+'"></div></div></div></td></tr>';Object.entries(KOMP).filter(([,v])=>v.g===g).sort((a,b)=>a[1].o-b[1].o).forEach(([k,m])=>{const rw=c.find(r=>r.kode===k);if(!rw)return;const pc=rw.pagu?(rw.real/rw.pagu*100):0,pr=pv.find(r=>r.kode===k);h+='<tr><td style="padding-left:1.4rem">'+m.l+'</td><td>'+(rw.pagu/1e9).toFixed(2)+'</td><td>'+(rw.real/1e9).toFixed(2)+'</td><td><span class="kpe '+pCl(pc)+'">'+pc.toFixed(1)+'%</span></td>'+(apbnYoY?'<td>'+(pr?(pr.real/1e9).toFixed(2):'—')+'</td><td>'+(pr&&pr.real?((rw.real-pr.real)/pr.real*100).toFixed(1)+'%':'—')+'</td>':'')+'<td><div class="bc"><div class="bt"><div class="bf" style="width:'+Math.min(pc,100)+'%;background:'+bCo(pc)+'"></div></div></div></td></tr>';});}return h+'</tbody></table>';}
+function drawAPBN(){const c=gf(apbnY,apbnM),co=Object.entries(KOMP).sort((a,b)=>a[1].o-b[1].o);
+charts.bar=new Chart(document.getElementById('cBar'),{type:'bar',data:{labels:co.map(([,v])=>v.l),datasets:[{label:'Pagu',data:co.map(([k])=>{const r=c.find(x=>x.kode===k);return r?r.pagu/1e9:0;}),backgroundColor:'rgba(148,163,184,.3)',borderRadius:4,barPercentage:.7,categoryPercentage:.7},{label:'Realisasi',data:co.map(([k])=>{const r=c.find(x=>x.kode===k);return r?r.real/1e9:0;}),backgroundColor:co.map(([,v])=>GC[v.g].bar),borderRadius:4,barPercentage:.7,categoryPercentage:.7}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{font:{family:'Inter',size:10},usePointStyle:true,padding:12}},tooltip:{callbacks:{label:c=>c.dataset.label+': Rp '+c.parsed.y.toFixed(2)+' M'}}},scales:{x:{ticks:{font:{size:8},maxRotation:45,minRotation:45},grid:{display:false}},y:{ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v.toLocaleString()},grid:{color:'#F1F5F9'}}}}});
+const gs=['pendapatan','belanja','tkdd'];charts.donut=new Chart(document.getElementById('cDonut'),{type:'doughnut',data:{labels:gs.map(g=>GRP[g]),datasets:[{data:gs.map(g=>sg(c,g).real/1e9),backgroundColor:gs.map(g=>GC[g].bar),borderWidth:2,borderColor:'#fff',hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'bottom',labels:{font:{size:10},usePointStyle:true,padding:12}}}}});
+const aM=[...new Set(D.apbn.filter(r=>r.thn===apbnY).map(r=>r.bln))].sort((a,b)=>a-b),ds=gs.map(g=>({label:GRP[g],data:aM.map(m=>sg(gf(apbnY,m),g).real/1e9),borderColor:GC[g].bar,backgroundColor:GC[g].bar+'18',fill:true,tension:.35,pointRadius:4,borderWidth:2.5}));
+if(apbnYoY){const py=apbnY-1,pm=[...new Set(D.apbn.filter(r=>r.thn===py).map(r=>r.bln))];gs.forEach(g=>{ds.push({label:GRP[g]+' ('+py+')',data:aM.map(m=>pm.includes(m)?sg(gf(py,m),g).real/1e9:null),borderColor:GC[g].bar+'55',borderDash:[6,4],fill:false,tension:.35,pointRadius:3,borderWidth:2});});}
+charts.trend=new Chart(document.getElementById('cTrend'),{type:'line',data:{labels:aM.map(m=>BLN[m]),datasets:ds},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'top',labels:{font:{size:9},usePointStyle:true,padding:10}},tooltip:{mode:'index',intersect:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v.toLocaleString()}}}}});}
 
 // ═══ APBD ═══
-function renderAPBD(){
-  if(!apbdData.length)return'<div class="error-msg">File apbd.csv tidak ditemukan</div>';
-  const mos=[...new Set(apbdData.map(r=>r.bln))].sort((a,b)=>a-b);
-  const curr=apbdData.filter(r=>r.bln===apbdMonth&&!r.pemda.startsWith('Provinsi'));
-  const prov=apbdData.find(r=>r.bln===apbdMonth&&r.pemda.startsWith('Provinsi'));
-  const totP=curr.reduce((s,r)=>s+r.pendapatan,0)+(prov?prov.pendapatan:0);
-  const totB=curr.reduce((s,r)=>s+r.belanja,0)+(prov?prov.belanja:0);
-  const totS=curr.reduce((s,r)=>s+r.silpa,0)+(prov?prov.silpa:0);
-  const sorted=[prov,...curr.sort((a,b)=>b.pendapatan-a.pendapatan)].filter(Boolean);
-  return`<div>
-  <div class="controls">
-    <div class="control-group"><label>s.d. Bulan</label><select id="sMApbd">${mos.map(m=>'<option value="'+m+'"'+(m===apbdMonth?' selected':'')+'>'+BLN_F[m]+'</option>').join('')}</select></div>
-    <div class="spacer"></div>
-    <div class="control-group"><label>Peta</label><select id="sMetric">
-      <option value="pendapatan" ${apbdMetric==='pendapatan'?'selected':''}>Pendapatan</option>
-      <option value="belanja" ${apbdMetric==='belanja'?'selected':''}>Belanja</option>
-      <option value="silpa" ${apbdMetric==='silpa'?'selected':''}>SILPA</option>
-    </select></div>
-  </div>
-  <div class="kpi-grid">
-    <div class="kpi-card c-green"><div class="kpi-label">Total Pendapatan</div><div class="kpi-value">${fmt(totP)}<span class="unit">${fU(totP)}</span></div></div>
-    <div class="kpi-card c-red"><div class="kpi-label">Total Belanja</div><div class="kpi-value">${fmt(totB)}<span class="unit">${fU(totB)}</span></div></div>
-    <div class="kpi-card c-blue"><div class="kpi-label">Total SILPA</div><div class="kpi-value">${fmt(totS)}<span class="unit">${fU(totS)}</span></div><div class="kpi-sub"><span class="kpi-pagu">${totS>=0?'Surplus':'Defisit'}</span></div></div>
-  </div>
-  <div class="panels">
-    <div class="panel"><div class="panel-title">Pendapatan vs Belanja per Pemda</div><div class="chart-wrap"><canvas id="cApbd" height="340"></canvas></div></div>
-    <div class="panel"><div class="panel-title">Peta ${apbdMetric.charAt(0).toUpperCase()+apbdMetric.slice(1)} per Kab/Kota</div><div id="mapApbd" class="map-container"></div><div class="map-legend"><span>Rendah</span><div class="lg-bar"><span style="background:#E3F2FD"></span><span style="background:#42A5F5"></span><span style="background:#1565C0"></span></div><span>Tinggi</span></div></div>
-  </div>
-  <div class="panel panel-full" style="margin-bottom:1.4rem"><div class="panel-title">Rincian APBD per Pemda</div><div class="table-wrap">${apbdTable(sorted)}</div></div>
-  <div class="panels">
-    <div class="panel"><div class="panel-title">Tren Pendapatan</div><div class="chart-wrap"><canvas id="cApbdTP" height="260"></canvas></div></div>
-    <div class="panel"><div class="panel-title">Tren Belanja</div><div class="chart-wrap"><canvas id="cApbdTB" height="260"></canvas></div></div>
-  </div></div>`;
-}
-function apbdTable(rows){let h='<table class="dt"><thead><tr><th>Pemda</th><th>Pendapatan (M)</th><th>Belanja (M)</th><th>Pembiayaan (M)</th><th>SILPA (M)</th></tr></thead><tbody>';rows.forEach(r=>{const iP=r.pemda.startsWith('Provinsi');h+='<tr'+(iP?' class="grp"':'')+'><td>'+r.pemda+'</td><td>'+(r.pendapatan/1e9).toFixed(2)+'</td><td>'+(r.belanja/1e9).toFixed(2)+'</td><td>'+(r.pembiayaan/1e9).toFixed(2)+'</td><td style="color:'+(r.silpa>=0?'var(--mint)':'var(--coral)')+'">'+(r.silpa/1e9).toFixed(2)+'</td></tr>';});return h+'</tbody></table>';}
-
-function initAPBDMap(){
-  if(!geoData)return;
-  const curr=apbdData.filter(r=>r.bln===apbdMonth&&!r.pemda.startsWith('Provinsi'));
-  const vals=curr.map(r=>r[apbdMetric]||0);
-  const mn=Math.min(...vals),mx=Math.max(...vals);
-  leafletMap=L.map('mapApbd',{scrollWheelZoom:false}).setView([-3.7,128.2],6);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',{attribution:'©CartoDB',maxZoom:12}).addTo(leafletMap);
-  geoLayer=L.geoJSON(geoData,{
-    style:feat=>{const pemda=wadmkkToAPBD(feat.properties.WADMKK);const row=curr.find(r=>r.pemda===pemda);const v=row?row[apbdMetric]||0:0;return{fillColor:choroplethColor(v,mn,mx),weight:1.5,color:'#fff',fillOpacity:.8};},
-    onEachFeature:(feat,layer)=>{
-      const pemda=wadmkkToAPBD(feat.properties.WADMKK);const row=curr.find(r=>r.pemda===pemda);
-      let popup='<div class="popup-title">'+feat.properties.WADMKK+'</div>';
-      if(row){popup+='<div class="popup-row"><span class="pr-label">Pendapatan</span><span class="pr-val">'+(row.pendapatan/1e9).toFixed(2)+' M</span></div>';
-        popup+='<div class="popup-row"><span class="pr-label">Belanja</span><span class="pr-val">'+(row.belanja/1e9).toFixed(2)+' M</span></div>';
-        popup+='<div class="popup-row"><span class="pr-label">SILPA</span><span class="pr-val" style="color:'+(row.silpa>=0?'var(--mint)':'var(--coral)')+'">'+(row.silpa/1e9).toFixed(2)+' M</span></div>';}
-      else popup+='<div style="color:var(--muted);font-size:.75rem">Data belum tersedia</div>';
-      popup+='<div style="margin-top:4px;font-size:.65rem;color:var(--muted)">KPPN: '+feat.properties.KPPN+'</div>';
-      layer.bindPopup(popup);
-      layer.on('mouseover',()=>layer.setStyle({weight:3,color:'#1565C0',fillOpacity:.9}));
-      layer.on('mouseout',()=>geoLayer.resetStyle(layer));
-    }
-  }).addTo(leafletMap);
-  leafletMap.fitBounds(geoLayer.getBounds().pad(0.05));
-}
-
-function drawAPBDCharts(){
-  const curr=apbdData.filter(r=>r.bln===apbdMonth);const sorted=[...curr].sort((a,b)=>{if(a.pemda.startsWith('Provinsi'))return-1;if(b.pemda.startsWith('Provinsi'))return 1;return b.pendapatan-a.pendapatan;});
-  charts.apbd=new Chart(document.getElementById('cApbd'),{type:'bar',data:{labels:sorted.map(r=>r.pemda.replace('Kabupaten ','Kab. ')),datasets:[{label:'Pendapatan',data:sorted.map(r=>r.pendapatan/1e9),backgroundColor:'#66BB6A',borderRadius:4,barPercentage:.7},{label:'Belanja',data:sorted.map(r=>r.belanja/1e9),backgroundColor:'#EF5350',borderRadius:4,barPercentage:.7}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{position:'top',labels:{font:{family:'Inter',size:10},usePointStyle:true,pointStyle:'rectRounded',padding:14}},tooltip:{callbacks:{label:c=>c.dataset.label+': Rp '+c.parsed.x.toFixed(2)+' M'}}},scales:{y:{ticks:{font:{family:'Inter',size:9}},grid:{display:false}},x:{ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v.toLocaleString()},grid:{color:'#F1F5F9'},title:{display:true,text:'Miliar Rp',font:{family:'Inter',size:9,weight:'600'},color:'#94A3B8'}}}}});
-  const mos=[...new Set(apbdData.map(r=>r.bln))].sort((a,b)=>a-b);const pemdas=[...new Set(apbdData.map(r=>r.pemda))];const pal=['#2196F3','#EF5350','#66BB6A','#F5A623','#7E57C2','#26C6DA','#FF7043','#8D6E63','#78909C','#EC407A','#1B3A5C'];
-  function tDS(f){return pemdas.map((p,i)=>({label:p.replace('Kabupaten ','Kab. '),data:mos.map(m=>{const r=apbdData.find(x=>x.pemda===p&&x.bln===m);return r?r[f]/1e9:null;}),borderColor:pal[i%pal.length],tension:.3,pointRadius:3,borderWidth:2,fill:false}));}
-  const tO={responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom',labels:{font:{family:'Inter',size:8},usePointStyle:true,boxWidth:8,padding:8}},tooltip:{mode:'index',intersect:false}},scales:{x:{grid:{display:false}},y:{ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v.toLocaleString()},grid:{color:'#F1F5F9'}}}};
-  charts.apbdTP=new Chart(document.getElementById('cApbdTP'),{type:'line',data:{labels:mos.map(m=>BLN[m]),datasets:tDS('pendapatan')},options:tO});
-  charts.apbdTB=new Chart(document.getElementById('cApbdTB'),{type:'line',data:{labels:mos.map(m=>BLN[m]),datasets:tDS('belanja')},options:{...tO}});
-}
+function renderAPBD(){if(!D.apbd.length)return'<div class="errmsg">apbd.csv tidak ditemukan</div>';const mos=[...new Set(D.apbd.map(r=>r.bln))].sort((a,b)=>a-b),c=D.apbd.filter(r=>r.bln===apbdM&&!r.pemda.startsWith('Provinsi')),prov=D.apbd.find(r=>r.bln===apbdM&&r.pemda.startsWith('Provinsi')),tP=c.reduce((s,r)=>s+r.pendapatan,0)+(prov?prov.pendapatan:0),tB=c.reduce((s,r)=>s+r.belanja,0)+(prov?prov.belanja:0),tS=c.reduce((s,r)=>s+r.silpa,0)+(prov?prov.silpa:0);
+return`<div><div class="controls"><div class="cg"><label>s.d.</label><select id="sMa">${mos.map(m=>'<option value="'+m+'"'+(m===apbdM?' selected':'')+'>'+BLN_F[m]+'</option>').join('')}</select></div><div class="spacer"></div><div class="cg"><label>Peta</label><select id="sMe"><option value="pendapatan"${apbdMetric==='pendapatan'?' selected':''}>Pendapatan</option><option value="belanja"${apbdMetric==='belanja'?' selected':''}>Belanja</option><option value="silpa"${apbdMetric==='silpa'?' selected':''}>SILPA</option></select></div></div>
+<div class="kg"><div class="kc cg1"><div class="kl">Total Pendapatan</div><div class="kv">${fmt(tP)}<span class="u">${fU(tP)}</span></div></div><div class="kc cr"><div class="kl">Total Belanja</div><div class="kv">${fmt(tB)}<span class="u">${fU(tB)}</span></div></div><div class="kc cb2"><div class="kl">Total SILPA</div><div class="kv">${fmt(tS)}<span class="u">${fU(tS)}</span></div></div></div>
+<div class="panels"><div class="panel"><div class="pt">Pendapatan vs Belanja</div><div class="cw"><canvas id="cApbd" height="340"></canvas></div></div><div class="panel"><div class="pt">Peta ${apbdMetric}</div><div id="mapApbd" class="mc"></div><div class="ml"><span>Rendah</span><div class="lb"><span style="background:#E3F2FD"></span><span style="background:#42A5F5"></span><span style="background:#1565C0"></span></div><span>Tinggi</span></div></div></div>
+<div class="panel pf"><div class="pt">Rincian APBD</div><div class="tw">${apbdTbl()}</div></div></div>`;}
+function apbdTbl(){const c=D.apbd.filter(r=>r.bln===apbdM).sort((a,b)=>a.pemda.startsWith('Provinsi')?-1:b.pemda.startsWith('Provinsi')?1:b.pendapatan-a.pendapatan);let h='<table class="dt"><thead><tr><th>Pemda</th><th>Pendapatan</th><th>Belanja</th><th>Pembiayaan</th><th>SILPA</th></tr></thead><tbody>';c.forEach(r=>{h+='<tr'+(r.pemda.startsWith('Provinsi')?' class="grp"':'')+'><td>'+r.pemda+'</td><td>'+(r.pendapatan/1e9).toFixed(2)+'</td><td>'+(r.belanja/1e9).toFixed(2)+'</td><td>'+(r.pembiayaan/1e9).toFixed(2)+'</td><td style="color:'+(r.silpa>=0?'var(--mint)':'var(--coral)')+'">'+(r.silpa/1e9).toFixed(2)+'</td></tr>';});return h+'</tbody></table>';}
+function drawAPBD(){const c=D.apbd.filter(r=>r.bln===apbdM).sort((a,b)=>a.pemda.startsWith('Provinsi')?-1:b.pemda.startsWith('Provinsi')?1:b.pendapatan-a.pendapatan);charts.apbd=new Chart(document.getElementById('cApbd'),{type:'bar',data:{labels:c.map(r=>r.pemda.replace('Kabupaten ','Kab. ')),datasets:[{label:'Pendapatan',data:c.map(r=>r.pendapatan/1e9),backgroundColor:'#66BB6A',borderRadius:4,barPercentage:.7},{label:'Belanja',data:c.map(r=>r.belanja/1e9),backgroundColor:'#EF5350',borderRadius:4,barPercentage:.7}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{position:'top',labels:{font:{size:10},usePointStyle:true,padding:12}},tooltip:{callbacks:{label:c=>c.dataset.label+': Rp '+c.parsed.x.toFixed(2)+' M'}}},scales:{y:{ticks:{font:{size:9}},grid:{display:false}},x:{ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v.toLocaleString()},grid:{color:'#F1F5F9'}}}}});}
+function apbdMapStyle(f){const c=D.apbd.filter(r=>r.bln===apbdM&&!r.pemda.startsWith('Provinsi'));const vals=c.map(r=>r[apbdMetric]||0);const mn=Math.min(...vals),mx=Math.max(...vals);const p=w2a(f.properties.WADMKK);const row=c.find(r=>r.pemda===p);return{fillColor:cCol(row?row[apbdMetric]||0:0,mn,mx),weight:1.5,color:'#fff',fillOpacity:.8};}
+function apbdPopup(f){const p=w2a(f.properties.WADMKK);const r=D.apbd.filter(x=>x.bln===apbdM).find(x=>x.pemda===p);let h='<div class="ppt">'+f.properties.WADMKK+'</div>';if(r){h+='<div class="ppr"><span class="pl2">Pendapatan</span><span class="pv2">'+(r.pendapatan/1e9).toFixed(2)+' M</span></div><div class="ppr"><span class="pl2">Belanja</span><span class="pv2">'+(r.belanja/1e9).toFixed(2)+' M</span></div><div class="ppr"><span class="pl2">SILPA</span><span class="pv2" style="color:'+(r.silpa>=0?'var(--mint)':'var(--coral)')+'">'+(r.silpa/1e9).toFixed(2)+' M</span></div>';}return h;}
 
 // ═══ INFLASI ═══
-function renderInflasi(){
-  if(!inflasiData.length)return'<div class="error-msg">File inflasi.csv tidak ditemukan</div>';
-  const locs=['Maluku','Ambon','Tual','MalukuTengah','Nasional'];const latest={};
-  locs.forEach(loc=>{const rows=inflasiData.filter(r=>r.loc===loc&&r.yoy!==null).sort((a,b)=>a.waktu.localeCompare(b.waktu));if(rows.length)latest[loc]=rows[rows.length-1];});
-  const malukuMom=inflasiData.filter(r=>r.loc==='Maluku'&&r.mom!==null).sort((a,b)=>a.waktu.localeCompare(b.waktu));const latMom=malukuMom.length?malukuMom[malukuMom.length-1]:null;
-  let chips='<div class="inflasi-latest">';locs.forEach(loc=>{if(!latest[loc])return;const v=latest[loc];const col=LOC_C[loc]||'var(--text)';const ms=loc==='Maluku'&&latMom?'MoM: '+(latMom.mom>=0?'+':'')+latMom.mom.toFixed(2)+'%':'';chips+='<div class="inflasi-chip"><div class="ic-loc" style="color:'+col+'">'+(LOC_L[loc]||loc)+'</div><div class="ic-val" style="color:'+col+'">'+v.yoy.toFixed(2)+'%</div>'+(ms?'<div class="ic-mom">'+ms+'</div>':'')+'</div>';});chips+='</div>';
-  return`<div><p style="font-size:.78rem;color:var(--sub);margin-bottom:1rem;font-weight:500">Inflasi tahunan (YoY) — data terakhir: ${Object.values(latest)[0]?.waktu||'—'}</p>${chips}
-  <div class="panels"><div class="panel panel-full"><div class="panel-title">Inflasi YoY — Perbandingan Kota & Nasional</div><div class="chart-wrap"><canvas id="cYoY" height="280"></canvas></div></div></div>
-  <div class="panels"><div class="panel panel-full"><div class="panel-title">Inflasi Bulanan (MoM) — Provinsi Maluku</div><div class="chart-wrap"><canvas id="cMoM" height="220"></canvas></div></div></div>
-  <div class="panel panel-full"><div class="panel-title">Tabel Inflasi YoY</div><div class="table-wrap">${inflasiTable()}</div></div></div>`;
-}
-function inflasiTable(){const times=[...new Set(inflasiData.filter(r=>r.yoy!==null).map(r=>r.waktu))].sort((a,b)=>b.localeCompare(a)).slice(0,24);const locs=['Maluku','Ambon','Tual','MalukuTengah','Nasional'];let h='<table class="dt"><thead><tr><th>Periode</th>';locs.forEach(l=>{h+='<th>'+(LOC_L[l]||l)+'</th>';});h+='</tr></thead><tbody>';times.forEach(t=>{h+='<tr><td>'+t+'</td>';locs.forEach(l=>{const r=inflasiData.find(x=>x.loc===l&&x.waktu===t&&x.yoy!==null);if(r){const col=r.yoy>3.5?'var(--coral)':r.yoy>2?'var(--amber)':'var(--mint)';h+='<td style="color:'+col+';font-weight:600">'+r.yoy.toFixed(2)+'%</td>';}else h+='<td style="color:var(--muted)">—</td>';});h+='</tr>';});return h+'</tbody></table>';}
-function drawInflasiCharts(){const allTimes=[...new Set(inflasiData.filter(r=>r.yoy!==null).map(r=>r.waktu))].sort();const locs=['Maluku','Ambon','Tual','MalukuTengah','Nasional'];const yoyDS=locs.map(loc=>({label:LOC_L[loc]||loc,data:allTimes.map(t=>{const r=inflasiData.find(x=>x.loc===loc&&x.waktu===t&&x.yoy!==null);return r?r.yoy:null;}),borderColor:LOC_C[loc]||'#999',tension:.3,pointRadius:loc==='Maluku'?2.5:1.5,borderWidth:loc==='Maluku'?3:2,fill:false,borderDash:loc==='Nasional'?[5,3]:[]}));
-charts.yoy=new Chart(document.getElementById('cYoY'),{type:'line',data:{labels:allTimes.map(t=>{const[y,m]=t.split('/');return BLN[+m]+' '+y.slice(2);}),datasets:yoyDS},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'top',labels:{font:{family:'Inter',size:10},usePointStyle:true,pointStyle:'circle',padding:12}},tooltip:{mode:'index',intersect:false,callbacks:{label:c=>c.dataset.label+': '+(c.parsed.y!==null?c.parsed.y.toFixed(2)+'%':'—')}}},scales:{x:{grid:{display:false},ticks:{font:{family:'Inter',size:8},maxTicksLimit:20}},y:{grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'},title:{display:true,text:'% YoY',font:{family:'Inter',size:9,weight:'600'},color:'#94A3B8'}}}}});
-const momData=inflasiData.filter(r=>r.loc==='Maluku'&&r.mom!==null).sort((a,b)=>a.waktu.localeCompare(b.waktu));charts.mom=new Chart(document.getElementById('cMoM'),{type:'bar',data:{labels:momData.map(r=>{const[y,m]=r.waktu.split('/');return BLN[+m]+' '+y.slice(2);}),datasets:[{data:momData.map(r=>r.mom),backgroundColor:momData.map(r=>r.mom>=0?'#66BB6A':'#EF5350'),borderRadius:3,barPercentage:.75}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'MoM: '+(c.parsed.y>=0?'+':'')+c.parsed.y.toFixed(2)+'%'}}},scales:{x:{grid:{display:false},ticks:{font:{family:'Inter',size:8},maxTicksLimit:24}},y:{grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'},title:{display:true,text:'% MoM',font:{family:'Inter',size:9,weight:'600'},color:'#94A3B8'}}}}});}
+function renderInflasi(){if(!D.inflasi.length)return'<div class="errmsg">inflasi.csv tidak ditemukan</div>';const locs=['Maluku','Ambon','Tual','MalukuTengah','Nasional'],lat={};locs.forEach(l=>{const rows=D.inflasi.filter(r=>r.loc===l&&r.yoy!==null).sort((a,b)=>a.waktu.localeCompare(b.waktu));if(rows.length)lat[l]=rows[rows.length-1];});const mm=D.inflasi.filter(r=>r.loc==='Maluku'&&r.mom!==null).sort((a,b)=>a.waktu.localeCompare(b.waktu));const lm=mm.length?mm[mm.length-1]:null;
+let chips='<div class="inflasi-latest">';locs.forEach(l=>{if(!lat[l])return;const v=lat[l],col=LOC_C[l]||'var(--text)',ms=l==='Maluku'&&lm?'MoM: '+(lm.mom>=0?'+':'')+lm.mom.toFixed(2)+'%':'';chips+='<div class="ic"><div class="il" style="color:'+col+'">'+(LOC_L[l]||l)+'</div><div class="iv" style="color:'+col+'">'+v.yoy.toFixed(2)+'%</div>'+(ms?'<div class="im">'+ms+'</div>':'')+'</div>';});chips+='</div>';
+return`<div><p style="font-size:.76rem;color:var(--sub);margin-bottom:1rem;font-weight:500">Inflasi YoY — data terakhir: ${Object.values(lat)[0]?.waktu||'—'}</p>${chips}<div class="panels"><div class="panel pf"><div class="pt">Inflasi YoY</div><div class="cw"><canvas id="cYoY" height="280"></canvas></div></div></div><div class="panels"><div class="panel pf"><div class="pt">Inflasi MoM — Prov. Maluku</div><div class="cw"><canvas id="cMoM" height="220"></canvas></div></div></div></div>`;}
+function drawInflasi(){const aT=[...new Set(D.inflasi.filter(r=>r.yoy!==null).map(r=>r.waktu))].sort(),locs=['Maluku','Ambon','Tual','MalukuTengah','Nasional'];charts.yoy=new Chart(document.getElementById('cYoY'),{type:'line',data:{labels:aT.map(t=>{const[y,m]=t.split('/');return BLN[+m]+' '+y.slice(2);}),datasets:locs.map(l=>({label:LOC_L[l]||l,data:aT.map(t=>{const r=D.inflasi.find(x=>x.loc===l&&x.waktu===t&&x.yoy!==null);return r?r.yoy:null;}),borderColor:LOC_C[l]||'#999',tension:.3,pointRadius:l==='Maluku'?2.5:1.5,borderWidth:l==='Maluku'?3:2,fill:false,borderDash:l==='Nasional'?[5,3]:[]}))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'top',labels:{font:{size:10},usePointStyle:true,padding:12}},tooltip:{mode:'index',intersect:false}},scales:{x:{grid:{display:false},ticks:{font:{size:8},maxTicksLimit:20}},y:{grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'}}}}});
+const md=D.inflasi.filter(r=>r.loc==='Maluku'&&r.mom!==null).sort((a,b)=>a.waktu.localeCompare(b.waktu));charts.mom=new Chart(document.getElementById('cMoM'),{type:'bar',data:{labels:md.map(r=>{const[y,m]=r.waktu.split('/');return BLN[+m]+' '+y.slice(2);}),datasets:[{data:md.map(r=>r.mom),backgroundColor:md.map(r=>r.mom>=0?'#66BB6A':'#EF5350'),borderRadius:3,barPercentage:.75}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:8},maxTicksLimit:24}},y:{grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'}}}}});}
 
-// ═══════════════════════════════════════════════════
-//  ANALISIS TAB
-// ═══════════════════════════════════════════════════
-function getLatestInflasi(loc){
-  const rows=inflasiData.filter(r=>r.loc===loc&&r.yoy!==null).sort((a,b)=>a.waktu.localeCompare(b.waktu));
-  return rows.length?rows[rows.length-1].yoy:null;
-}
-function getMalukuInflasiForMonth(thn,bln){
-  const key=thn+'/'+String(bln).padStart(2,'0')+'/01';
-  const r=inflasiData.find(x=>x.loc==='Maluku'&&x.waktu===key&&x.yoy!==null);
-  return r?r.yoy:null;
-}
-function getNasionalInflasi(){return getLatestInflasi('Nasional');}
-
+// ═══ DJPb ANALISIS ═══
 function computeScores(){
-  const curr=apbdData.filter(r=>r.bln===apbdMonth&&!r.pemda.startsWith('Provinsi'));
-  const nasInflasi=getNasionalInflasi()||2.5;
-  const malukuInflasi=getLatestInflasi('Maluku')||nasInflasi;
+  const c=D.apbd.filter(r=>r.bln===apbdM&&!r.pemda.startsWith('Provinsi'));const nasI=getInf('Nasional')||2.5,malI=getInf('Maluku')||nasI;
+  return c.map(r=>{const rb=r.pendapatan>0?Math.min(r.belanja/r.pendapatan,1.5):0,sB=Math.min(rb/.8*40,40),sr=r.pendapatan>0?Math.abs(r.silpa)/r.pendapatan:1,sS=Math.max(0,30-sr*30);
+    const lk=PEMDA_INF[r.pemda],li=lk?getInf(lk):malI,id=li!==null?Math.abs(li-nasI):2,sI=Math.max(0,30-id*5);const tot=Math.round(sB+sS+sI);
+    return{pemda:r.pemda,skor:tot,sB:Math.round(sB),sS:Math.round(sS),sI:Math.round(sI),pendapatan:r.pendapatan,belanja:r.belanja,silpa:r.silpa,rb,sr,inflasi:li,id};}).sort((a,b)=>b.skor-a.skor);}
+function renderAnalisisDJPb(){if(!D.apbd.length)return'<div class="errmsg">Data APBD diperlukan</div>';const sc=computeScores(),best=sc[0],worst=sc[sc.length-1];
+  let ins=`<strong>${best.pemda.replace('Kabupaten ','Kab. ')}</strong> skor tertinggi (${best.skor}/100), <strong>${worst.pemda.replace('Kabupaten ','Kab. ')}</strong> terendah (${worst.skor}/100). `;
+  const hs=sc.filter(s=>s.sr>.5).map(s=>s.pemda.replace('Kabupaten ','Kab. '));if(hs.length)ins+=`SILPA tinggi: <strong>${hs.join(', ')}</strong>. `;
+  return`<div><div class="insight">${ins}</div><div class="panels"><div class="panel"><div class="pt">Skor Kinerja Kewilayahan</div><div class="ps">Belanja (40) + SILPA (30) + Inflasi (30)</div><div class="tw">${scoreTbl(sc)}</div></div><div class="panel"><div class="pt">Peta Skor</div><div id="mapAnal" class="mc"></div><div class="ml"><span>Rendah</span><div class="lb"><span style="background:#FFCDD2"></span><span style="background:#FFB74D"></span><span style="background:#66BB6A"></span><span style="background:#2E7D32"></span></div><span>Tinggi</span></div></div></div>
+  <div class="panels"><div class="panel pf"><div class="pt">Fiskal vs Inflasi</div><div class="ps">X: SILPA/Pendapatan · Y: Inflasi YoY</div><div class="cw"><canvas id="cScatter" height="280"></canvas></div></div></div></div>`;}
+function scoreTbl(sc){let h='<table class="dt"><thead><tr><th>Kab/Kota</th><th>Skor</th><th>Bel</th><th>SIL</th><th>Inf</th><th style="width:120px"></th></tr></thead><tbody>';sc.forEach(s=>{const c=sCol(s.skor);h+='<tr><td>'+s.pemda.replace('Kabupaten ','Kab. ')+'</td><td><span class="sv" style="color:'+c+'">'+s.skor+'</span></td><td>'+s.sB+'/40</td><td>'+s.sS+'/30</td><td>'+s.sI+'/30</td><td><div class="sbw"><div class="sbt"><div class="sbf" style="width:'+s.skor+'%;background:'+c+'"></div></div></div></td></tr>';});return h+'</tbody></table>';}
+function drawAnalDJPb(){const sc=computeScores().filter(s=>s.inflasi!==null),nasI=getInf('Nasional')||2.5;
+charts.scatter=new Chart(document.getElementById('cScatter'),{type:'scatter',data:{datasets:[{data:sc.map(s=>({x:s.sr*100,y:s.inflasi})),backgroundColor:sc.map(s=>s.inflasi>nasI&&s.sr>.5?'#EF5350':'#2196F3'),pointRadius:8,pointHoverRadius:11}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{title:function(items){return sc[items[0].dataIndex].pemda.replace('Kabupaten ','Kab. ');},label:function(ctx){const s=sc[ctx.dataIndex];return'SILPA: '+(s.sr*100).toFixed(1)+'%  Inflasi: '+s.inflasi.toFixed(2)+'%';}}}},scales:{x:{title:{display:true,text:'SILPA/Pendapatan (%)',font:{size:10,weight:'600'},color:'#64748B'},grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'}},y:{title:{display:true,text:'Inflasi YoY (%)',font:{size:10,weight:'600'},color:'#64748B'},grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'}}}}});}
+function analMapStyle(f){const sc=computeScores();const p=w2a(f.properties.WADMKK);const s=sc.find(x=>x.pemda===p);return{fillColor:s?sCol(s.skor):'#E2E8F0',weight:1.5,color:'#fff',fillOpacity:.75};}
+function analPopup(f){const sc=computeScores();const p=w2a(f.properties.WADMKK);const s=sc.find(x=>x.pemda===p);let h='<div class="ppt">'+f.properties.WADMKK+'</div>';if(s)h+='<div class="ppr"><span class="pl2">Skor</span><span class="pv2" style="color:'+sCol(s.skor)+'">'+s.skor+'/100</span></div><div class="ppr"><span class="pl2">Rasio Belanja</span><span class="pv2">'+(s.rb*100).toFixed(1)+'%</span></div>';return h;}
 
-  return curr.map(r=>{
-    // 1. Rasio Belanja (higher=better, spending their revenue)
-    const rasioBelanja=r.pendapatan>0?Math.min(r.belanja/r.pendapatan,1.5):0;
-    const skorBelanja=Math.min(rasioBelanja/0.8*40,40); // max 40pts at 80%+ spending ratio
-
-    // 2. SILPA efficiency (lower SILPA ratio = better, not sitting on money)
-    const silpaRatio=r.pendapatan>0?Math.abs(r.silpa)/r.pendapatan:1;
-    const skorSilpa=Math.max(0,30-silpaRatio*30); // max 30pts
-
-    // 3. Inflation proximity to national (closer=better)
-    const locKey=PEMDA_INFLASI[r.pemda];
-    const locInflasi=locKey?getLatestInflasi(locKey):malukuInflasi;
-    const infDev=locInflasi!==null?Math.abs(locInflasi-nasInflasi):2;
-    const skorInflasi=Math.max(0,30-infDev*5); // max 30pts
-
-    const total=Math.round(skorBelanja+skorSilpa+skorInflasi);
-    return{pemda:r.pemda,skor:total,skorBelanja:Math.round(skorBelanja),skorSilpa:Math.round(skorSilpa),skorInflasi:Math.round(skorInflasi),
-      pendapatan:r.pendapatan,belanja:r.belanja,silpa:r.silpa,rasioBelanja,silpaRatio,inflasi:locInflasi,infDev};
-  }).sort((a,b)=>b.skor-a.skor);
-}
-
-function renderAnalisis(){
-  if(!apbdData.length||!inflasiData.length)return'<div class="error-msg">Data APBD dan/atau Inflasi diperlukan untuk analisis</div>';
-  const scores=computeScores();
-  const nasInf=getNasionalInflasi()||0;
-  const malInf=getLatestInflasi('Maluku')||0;
-
-  // Insight text
-  const best=scores[0],worst=scores[scores.length-1];
-  const highSilpa=scores.filter(s=>s.silpaRatio>0.5).map(s=>s.pemda.replace('Kabupaten ','Kab. '));
-  const highInf=scores.filter(s=>s.inflasi!==null&&s.inflasi>nasInf+1).map(s=>s.pemda.replace('Kabupaten ','Kab. '));
-
-  let insight=`<strong>${best.pemda.replace('Kabupaten ','Kab. ')}</strong> memiliki skor kinerja tertinggi (${best.skor}/100), sementara <strong>${worst.pemda.replace('Kabupaten ','Kab. ')}</strong> terendah (${worst.skor}/100). `;
-  if(highSilpa.length)insight+=`Perhatian pada <strong>${highSilpa.join(', ')}</strong> yang memiliki rasio SILPA tinggi (>50% pendapatan), mengindikasikan kapasitas fiskal belum terserap optimal. `;
-  if(highInf.length)insight+=`Inflasi di <strong>${highInf.join(', ')}</strong> berada >1pp di atas rata-rata nasional (${nasInf.toFixed(2)}%).`;
-
+// ═══ BPS PROFIL ═══
+function renderBPS(){
+  if(!D.pdrb.length&&!D.ipm.length)return'<div class="errmsg">Data BPS tidak ditemukan</div>';
+  const avgIPM=D.ipm.length?(D.ipm.reduce((s,r)=>s+r.i25,0)/D.ipm.length).toFixed(2):'-';
+  const avgMiskin=D.kemiskinan.length?(D.kemiskinan.reduce((s,r)=>s+r.m25,0)/D.kemiskinan.length).toFixed(2):'-';
+  const avgGini=D.gini.length?(D.gini.reduce((s,r)=>s+r.g25,0)/D.gini.length).toFixed(3):'-';
+  const totPDRB=D.pdrb.reduce((s,r)=>s+r.adhb,0);
+  const totPop=D.penduduk.reduce((s,r)=>s+r.p26,0);
+  const pdrbPC=totPop?(totPDRB/totPop*1e9).toFixed(0):'-'; // Rp per kapita (PDRB in Miliar)
   return`<div>
-  <div class="insight-box">${insight}</div>
-
-  <div class="panels">
-    <div class="panel"><div class="panel-title">Skor Kinerja Kewilayahan</div>
-      <div class="panel-sub">Komposit: Rasio Belanja (40) + Efisiensi SILPA (30) + Stabilitas Inflasi (30)</div>
-      <div class="table-wrap">${scoreTable(scores)}</div></div>
-    <div class="panel"><div class="panel-title">Peta Skor Kinerja</div><div id="mapAnalisis" class="map-container"></div>
-      <div class="map-legend"><span>Rendah</span><div class="lg-bar"><span style="background:#FFCDD2"></span><span style="background:#FFB74D"></span><span style="background:#66BB6A"></span><span style="background:#2E7D32"></span></div><span>Tinggi</span></div></div>
+  <div class="kg">
+    <div class="kc cp"><div class="kl">IPM Rata-rata 2025</div><div class="kv">${avgIPM}</div></div>
+    <div class="kc cr"><div class="kl">Kemiskinan Rata-rata</div><div class="kv">${avgMiskin}<span class="u">%</span></div></div>
+    <div class="kc cb2"><div class="kl">PDRB Total Q1 2026</div><div class="kv">${(totPDRB/1e3).toFixed(2)}<span class="u">T</span></div></div>
+    <div class="kc cgo"><div class="kl">Gini Rata-rata</div><div class="kv">${avgGini}</div></div>
+    <div class="kc cg1"><div class="kl">Penduduk 2026</div><div class="kv">${(totPop/1e6).toFixed(2)}<span class="u">Jt</span></div></div>
   </div>
-
   <div class="panels">
-    <div class="panel panel-full"><div class="panel-title">Fiskal vs Inflasi — Scatter per Kab/Kota</div>
-      <div class="panel-sub">Sumbu X: Rasio SILPA/Pendapatan · Sumbu Y: Inflasi YoY · Kuadran kanan-atas = SILPA tinggi + inflasi tinggi (zona perhatian)</div>
-      <div class="chart-wrap"><canvas id="cScatter" height="300"></canvas></div></div>
+    <div class="panel"><div class="pt">PDRB ADHB Q1 2026 & Per Kapita</div><div class="cw"><canvas id="cPDRB" height="340"></canvas></div></div>
+    <div class="panel"><div class="pt">Peta IPM 2025</div><div id="mapBPS" class="mc"></div><div class="ml"><span>Rendah</span><div class="lb"><span style="background:#FFCDD2"></span><span style="background:#FFF9C4"></span><span style="background:#C8E6C9"></span></div><span>Tinggi</span></div></div>
   </div>
-
   <div class="panels">
-    <div class="panel panel-full"><div class="panel-title">Belanja Riil (Deflasi Inflasi) — APBN</div>
-      <div class="panel-sub">Realisasi belanja K/L disesuaikan dengan inflasi YoY Maluku untuk melihat pertumbuhan daya beli riil</div>
-      <div class="chart-wrap"><canvas id="cRealBelanja" height="220"></canvas></div></div>
+    <div class="panel"><div class="pt">IPM vs Kemiskinan 2025</div><div class="ps">Tiap titik = satu kab/kota</div><div class="cw"><canvas id="cIPMvsMiskin" height="280"></canvas></div></div>
+    <div class="panel"><div class="pt">Tren Kemiskinan 2023–2025</div><div class="cw"><canvas id="cMiskinTrend" height="280"></canvas></div></div>
   </div>
-  </div>`;
+  <div class="panel pf"><div class="pt">Profil Kab/Kota</div><div class="tw">${bpsTbl()}</div></div></div>`;}
+
+function bpsTbl(){let h='<table class="dt"><thead><tr><th>Kab/Kota</th><th>Penduduk</th><th>PDRB (M)</th><th>PDRB/Kap (Jt)</th><th>IPM</th><th>Miskin %</th><th>Gini</th><th>Nganggur</th></tr></thead><tbody>';
+  const sorted=[...D.pdrb].sort((a,b)=>b.adhb-a.adhb);
+  sorted.forEach(r=>{const pop=bpsLookup(r.kk,D.penduduk,'p26')||1;const ipm=bpsLookup(r.kk,D.ipm,'i25');const mis=bpsLookup(r.kk,D.kemiskinan,'m25');const gi=bpsLookup(r.kk,D.gini,'g25');const ng=bpsLookup(r.kk,D.pengangguran,'n25');const pc=r.adhb/pop*1e9/1e6;
+    h+='<tr><td>'+r.kk+'</td><td>'+pop.toLocaleString('id-ID')+'</td><td>'+r.adhb.toFixed(2)+'</td><td>'+pc.toFixed(1)+'</td><td>'+(ipm?ipm.toFixed(2):'—')+'</td><td style="color:'+(mis>20?'var(--coral)':mis>15?'var(--amber)':'var(--mint)')+'">'+(mis?mis.toFixed(2)+'%':'—')+'</td><td>'+(gi?gi.toFixed(3):'—')+'</td><td>'+(ng?ng.toLocaleString('id-ID'):'—')+'</td></tr>';});
+  return h+'</tbody></table>';}
+
+function drawBPS(){
+  // PDRB bar + per capita line
+  const sorted=[...D.pdrb].sort((a,b)=>b.adhb-a.adhb);const labels=sorted.map(r=>r.kk.replace('Kepulauan ','Kep. '));
+  const pcData=sorted.map(r=>{const pop=bpsLookup(r.kk,D.penduduk,'p26')||1;return r.adhb/pop*1e9/1e6;});
+  charts.pdrb=new Chart(document.getElementById('cPDRB'),{type:'bar',data:{labels,datasets:[{label:'PDRB (Miliar)',data:sorted.map(r=>r.adhb),backgroundColor:'#2196F3',borderRadius:4,barPercentage:.6,yAxisID:'y'},{label:'Per Kapita (Juta Rp)',data:pcData,type:'line',borderColor:'#F5A623',backgroundColor:'#F5A62333',pointRadius:5,borderWidth:2.5,yAxisID:'y1',tension:.3}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{position:'top',labels:{font:{size:10},usePointStyle:true,padding:12}}},scales:{y:{ticks:{font:{size:8}},grid:{display:false}},x:{position:'bottom',ticks:{font:{family:'JetBrains Mono',size:9}},grid:{color:'#F1F5F9'}},y1:{position:'top',ticks:{font:{family:'JetBrains Mono',size:8},callback:v=>v.toFixed(0)+'Jt'},grid:{display:false}}}}});
+
+  // IPM vs Miskin scatter
+  const scD=D.ipm.map(r=>({x:r.i25,y:bpsLookup(r.kk,D.kemiskinan,'m25')||0,l:r.kk})).filter(d=>d.y>0);
+  charts.ipmMis=new Chart(document.getElementById('cIPMvsMiskin'),{type:'scatter',data:{datasets:[{data:scD.map(d=>({x:d.x,y:d.y})),backgroundColor:scD.map(d=>d.y>20?'#EF5350':d.y>15?'#FF8F00':'#66BB6A'),pointRadius:8,pointHoverRadius:11}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{title:items=>scD[items[0].dataIndex].l,label:ctx=>'IPM: '+scD[ctx.dataIndex].x.toFixed(2)+' | Miskin: '+scD[ctx.dataIndex].y.toFixed(2)+'%'}}},scales:{x:{title:{display:true,text:'IPM',font:{size:10,weight:'600'},color:'#64748B'},grid:{color:'#F1F5F9'}},y:{title:{display:true,text:'Kemiskinan (%)',font:{size:10,weight:'600'},color:'#64748B'},grid:{color:'#F1F5F9'},ticks:{callback:v=>v+'%'}}}}});
+
+  // Kemiskinan trend
+  const kks=D.kemiskinan.map(r=>r.kk);
+  charts.misTrend=new Chart(document.getElementById('cMiskinTrend'),{type:'line',data:{labels:['2023','2024','2025'],datasets:kks.map((k,i)=>({label:k.replace('Kepulauan ','Kep. '),data:[bpsLookup(k,D.kemiskinan,'m23'),bpsLookup(k,D.kemiskinan,'m24'),bpsLookup(k,D.kemiskinan,'m25')],borderColor:KAB_PAL[i%KAB_PAL.length],tension:.3,pointRadius:4,borderWidth:2,fill:false}))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom',labels:{font:{size:8},usePointStyle:true,boxWidth:8,padding:8}},tooltip:{mode:'index',intersect:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'}}}}});
 }
+function bpsMapStyle(f){const w=f.properties.WADMKK;const kk=w.startsWith('Kota')?w.replace('Kota ',''):w;const r=D.ipm.find(x=>x.kk===kk||x.kk===w.replace('Kota ',''));const v=r?r.i25:null;if(!v)return{fillColor:'#E2E8F0',weight:1.5,color:'#fff',fillOpacity:.7};const mn=60,mx=85;const t=Math.max(0,Math.min(1,(v-mn)/(mx-mn)));const col=t<.33?`rgb(${239},${83+t*3*100},${80})`:t<.66?`rgb(${255},${235},${59})`:(`rgb(${102-t*60},${187},${106})`);return{fillColor:col,weight:1.5,color:'#fff',fillOpacity:.75};}
+function bpsPopup(f){const w=f.properties.WADMKK;const kk=w.startsWith('Kota')?w.replace('Kota ',''):w;const ipm=D.ipm.find(x=>x.kk===kk||x.kk===w.replace('Kota ',''));const mis=D.kemiskinan.find(x=>x.kk===kk||x.kk===w.replace('Kota ',''));const pop=D.penduduk.find(x=>x.kk===kk||x.kk===w.replace('Kota ',''));
+  let h='<div class="ppt">'+w+'</div>';if(ipm)h+='<div class="ppr"><span class="pl2">IPM 2025</span><span class="pv2">'+ipm.i25.toFixed(2)+'</span></div>';if(mis)h+='<div class="ppr"><span class="pl2">Kemiskinan</span><span class="pv2" style="color:'+(mis.m25>20?'var(--coral)':'var(--mint)')+'">'+mis.m25.toFixed(2)+'%</span></div>';if(pop)h+='<div class="ppr"><span class="pl2">Penduduk</span><span class="pv2">'+pop.p26.toLocaleString()+'</span></div>';return h;}
 
-function scoreTable(scores){
-  let h='<table class="dt"><thead><tr><th>Kab/Kota</th><th>Skor</th><th>Belanja</th><th>SILPA</th><th>Inflasi</th><th style="width:140px"></th></tr></thead><tbody>';
-  scores.forEach(s=>{
-    const col=scoreColor(s.skor);
-    h+='<tr><td>'+s.pemda.replace('Kabupaten ','Kab. ')+'</td>';
-    h+='<td><span class="score-val" style="color:'+col+'">'+s.skor+'</span></td>';
-    h+='<td>'+s.skorBelanja+'/40</td><td>'+s.skorSilpa+'/30</td><td>'+s.skorInflasi+'/30</td>';
-    h+='<td><div class="score-bar-wrap"><div class="score-bar-track"><div class="score-bar-fill" style="width:'+s.skor+'%;background:'+col+'"></div></div></div></td></tr>';
-  });
-  return h+'</tbody></table>';
+// ═══ FULL ANALISIS (BPS + DJPb cross) ═══
+function renderAnalisisFull(){
+  if(!D.pdrb.length||!D.apbd.length)return'<div class="errmsg">Data BPS + APBD diperlukan</div>';
+  const c=D.apbd.filter(r=>r.bln===apbdM&&!r.pemda.startsWith('Provinsi'));
+  // Build cross data
+  const cross=D.pdrb.map(r=>{
+    const apem=b2a(r.kk),arw=c.find(x=>x.pemda===apem);
+    const pop=bpsLookup(r.kk,D.penduduk,'p26')||1;const ipm=bpsLookup(r.kk,D.ipm,'i25')||0;const mis=bpsLookup(r.kk,D.kemiskinan,'m25')||0;const gi=bpsLookup(r.kk,D.gini,'g25')||0;
+    const bel=arw?arw.belanja:0,pend=arw?arw.pendapatan:0,silpa=arw?arw.silpa:0;
+    const belPC=bel/pop,belPDRB=r.adhb>0?bel/1e9/r.adhb*100:0; // belanja as % of PDRB (annualized rough)
+    return{kk:r.kk,pemda:apem,pdrb:r.adhb,qtq:r.qtq,pop,ipm,mis,gi,bel,pend,silpa,belPC,belPDRB};
+  }).sort((a,b)=>b.pdrb-a.pdrb);
+
+  // Insights
+  const highMisBel=cross.filter(r=>r.mis>20&&r.belPC<cross.reduce((s,r)=>s+r.belPC,0)/cross.length);
+  let ins=`Analisis lintas data: `;
+  if(highMisBel.length)ins+=`<strong>${highMisBel.map(r=>r.kk).join(', ')}</strong> memiliki kemiskinan >20% namun belanja per kapita di bawah rata-rata — potensi under-investment. `;
+  const topPDRBpc=cross.map(r=>({kk:r.kk,pc:r.pdrb/r.pop*1e9/1e6})).sort((a,b)=>b.pc-a.pc);
+  ins+=`PDRB per kapita tertinggi: <strong>${topPDRBpc[0].kk}</strong> (Rp ${topPDRBpc[0].pc.toFixed(1)} Jt), terendah: <strong>${topPDRBpc[topPDRBpc.length-1].kk}</strong> (Rp ${topPDRBpc[topPDRBpc.length-1].pc.toFixed(1)} Jt).`;
+
+  return`<div><div class="insight">${ins}</div>
+  <div class="panels">
+    <div class="panel"><div class="pt">Belanja per Kapita vs Kemiskinan</div><div class="ps">Titik merah = kemiskinan >20% & belanja rendah</div><div class="cw"><canvas id="cBelPC" height="300"></canvas></div></div>
+    <div class="panel"><div class="pt">Peta Belanja per Kapita</div><div id="mapFull" class="mc"></div><div class="ml"><span>Rendah</span><div class="lb"><span style="background:#E3F2FD"></span><span style="background:#42A5F5"></span><span style="background:#1565C0"></span></div><span>Tinggi</span></div></div>
+  </div>
+  <div class="panels">
+    <div class="panel"><div class="pt">Belanja / PDRB (%)</div><div class="ps">Intensitas fiskal relatif terhadap ukuran ekonomi lokal</div><div class="cw"><canvas id="cBelPDRB" height="300"></canvas></div></div>
+    <div class="panel"><div class="pt">Pertumbuhan PDRB vs Gini</div><div class="ps">Kualitas pertumbuhan — apakah inklusif?</div><div class="cw"><canvas id="cGrowthGini" height="300"></canvas></div></div>
+  </div>
+  <div class="panel pf"><div class="pt">Tabel Lintas Data</div><div class="tw">${crossTbl(cross)}</div></div></div>`;}
+
+function crossTbl(cross){let h='<table class="dt"><thead><tr><th>Kab/Kota</th><th>Penduduk</th><th>PDRB (M)</th><th>PDRB/Kap</th><th>Belanja/Kap</th><th>Bel/PDRB</th><th>IPM</th><th>Miskin</th><th>Gini</th></tr></thead><tbody>';
+  cross.forEach(r=>{const pc=r.pdrb/r.pop*1e9/1e6;
+    h+='<tr><td>'+r.kk+'</td><td>'+r.pop.toLocaleString('id-ID')+'</td><td>'+r.pdrb.toFixed(0)+'</td><td>'+pc.toFixed(1)+' Jt</td><td>Rp '+(r.belPC/1e3).toFixed(0)+' rb</td><td>'+r.belPDRB.toFixed(1)+'%</td><td>'+r.ipm.toFixed(2)+'</td><td style="color:'+(r.mis>20?'var(--coral)':'var(--mint)')+'">'+r.mis.toFixed(2)+'%</td><td>'+r.gi.toFixed(3)+'</td></tr>';});
+  return h+'</tbody></table>';}
+
+function drawAnalFull(){
+  const c=D.apbd.filter(r=>r.bln===apbdM&&!r.pemda.startsWith('Provinsi'));
+  const cross=D.pdrb.map(r=>{const apem=b2a(r.kk),arw=c.find(x=>x.pemda===apem);const pop=bpsLookup(r.kk,D.penduduk,'p26')||1;const mis=bpsLookup(r.kk,D.kemiskinan,'m25')||0;const gi=bpsLookup(r.kk,D.gini,'g25')||0;const bel=arw?arw.belanja:0;return{kk:r.kk,pdrb:r.adhb,qtq:r.qtq,pop,mis,gi,bel,belPC:bel/pop,belPDRB:r.adhb>0?bel/1e9/r.adhb*100:0};});
+  const avgBPC=cross.reduce((s,r)=>s+r.belPC,0)/cross.length;
+
+  // Belanja per capita vs Kemiskinan
+  charts.belPC=new Chart(document.getElementById('cBelPC'),{type:'scatter',data:{datasets:[{data:cross.map(r=>({x:r.belPC/1e6,y:r.mis})),backgroundColor:cross.map(r=>r.mis>20&&r.belPC<avgBPC?'#EF5350':'#2196F3'),pointRadius:8,pointHoverRadius:11}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{title:items=>cross[items[0].dataIndex].kk,label:ctx=>'Bel/Kap: Rp '+cross[ctx.dataIndex].belPC.toFixed(0)+' | Miskin: '+cross[ctx.dataIndex].mis.toFixed(2)+'%'}}},scales:{x:{title:{display:true,text:'Belanja per Kapita (Juta Rp)',font:{size:10,weight:'600'},color:'#64748B'},grid:{color:'#F1F5F9'}},y:{title:{display:true,text:'Kemiskinan (%)',font:{size:10,weight:'600'},color:'#64748B'},grid:{color:'#F1F5F9'},ticks:{callback:v=>v+'%'}}}}});
+
+  // Belanja/PDRB bar
+  const sorted=[...cross].sort((a,b)=>b.belPDRB-a.belPDRB);
+  charts.belPDRB=new Chart(document.getElementById('cBelPDRB'),{type:'bar',data:{labels:sorted.map(r=>r.kk.replace('Kepulauan ','Kep. ')),datasets:[{data:sorted.map(r=>r.belPDRB),backgroundColor:sorted.map(r=>r.belPDRB>10?'#2196F3':r.belPDRB>5?'#66BB6A':'#FF8F00'),borderRadius:4,barPercentage:.7}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'Belanja/PDRB: '+c.parsed.x.toFixed(1)+'%'}}},scales:{y:{ticks:{font:{size:8}},grid:{display:false}},x:{grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'}}}}});
+
+  // Growth vs Gini scatter
+  charts.growGini=new Chart(document.getElementById('cGrowthGini'),{type:'scatter',data:{datasets:[{data:cross.map(r=>({x:r.qtq,y:r.gi})),backgroundColor:cross.map(r=>r.qtq<-5?'#EF5350':r.gi>.28?'#FF8F00':'#66BB6A'),pointRadius:8,pointHoverRadius:11}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{title:items=>cross[items[0].dataIndex].kk,label:ctx=>'Growth: '+cross[ctx.dataIndex].qtq.toFixed(2)+'% | Gini: '+cross[ctx.dataIndex].gi.toFixed(3)}}},scales:{x:{title:{display:true,text:'Pertumbuhan PDRB q-to-q (%)',font:{size:10,weight:'600'},color:'#64748B'},grid:{color:'#F1F5F9'},ticks:{callback:v=>v+'%'}},y:{title:{display:true,text:'Gini Rasio',font:{size:10,weight:'600'},color:'#64748B'},grid:{color:'#F1F5F9'}}}}});
 }
+function fullMapStyle(f){const c=D.apbd.filter(r=>r.bln===apbdM&&!r.pemda.startsWith('Provinsi'));const cross=D.pdrb.map(r=>{const apem=b2a(r.kk);const arw=c.find(x=>x.pemda===apem);const pop=bpsLookup(r.kk,D.penduduk,'p26')||1;return{kk:r.kk,belPC:arw?arw.belanja/pop:0};});const vals=cross.map(r=>r.belPC);const mn=Math.min(...vals),mx=Math.max(...vals);const p=w2a(f.properties.WADMKK);const kk=f.properties.WADMKK.startsWith('Kota')?f.properties.WADMKK.replace('Kota ',''):f.properties.WADMKK;const r=cross.find(x=>x.kk===kk||x.kk===f.properties.WADMKK.replace('Kota ',''));return{fillColor:cCol(r?r.belPC:0,mn,mx),weight:1.5,color:'#fff',fillOpacity:.8};}
+function fullPopup(f){const w=f.properties.WADMKK;const kk=w.startsWith('Kota')?w.replace('Kota ',''):w;const c=D.apbd.filter(r=>r.bln===apbdM&&!r.pemda.startsWith('Provinsi'));const apem=b2a(kk==='Ambon'?'Ambon':kk==='Tual'?'Tual':kk);const arw=c.find(x=>x.pemda===apem)||c.find(x=>x.pemda===w2a(w));const pop=D.penduduk.find(x=>x.kk===kk||x.kk===(w.startsWith('Kota')?w.replace('Kota ',''):w));const pd=D.pdrb.find(x=>x.kk===kk||x.kk===(w.startsWith('Kota')?w.replace('Kota ',''):w));
+  let h='<div class="ppt">'+w+'</div>';if(arw&&pop){h+='<div class="ppr"><span class="pl2">Bel/Kapita</span><span class="pv2">Rp '+(arw.belanja/pop.p26/1e3).toFixed(0)+' rb</span></div>';}if(pd){h+='<div class="ppr"><span class="pl2">PDRB Q1</span><span class="pv2">'+pd.adhb.toFixed(0)+' M</span></div>';}return h;}
 
-function initAnalisisMap(){
-  if(!geoData)return;
-  const scores=computeScores();
-  leafletMap=L.map('mapAnalisis',{scrollWheelZoom:false}).setView([-3.7,128.2],6);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',{attribution:'©CartoDB',maxZoom:12}).addTo(leafletMap);
-  geoLayer=L.geoJSON(geoData,{
-    style:feat=>{const pemda=wadmkkToAPBD(feat.properties.WADMKK);const s=scores.find(x=>x.pemda===pemda);const col=s?scoreColor(s.skor):'#E2E8F0';return{fillColor:col,weight:1.5,color:'#fff',fillOpacity:.75};},
-    onEachFeature:(feat,layer)=>{
-      const pemda=wadmkkToAPBD(feat.properties.WADMKK);const s=scores.find(x=>x.pemda===pemda);
-      let popup='<div class="popup-title">'+feat.properties.WADMKK+'</div>';
-      if(s){
-        popup+='<div class="popup-row"><span class="pr-label">Skor Kinerja</span><span class="pr-val" style="color:'+scoreColor(s.skor)+'">'+s.skor+'/100</span></div>';
-        popup+='<div class="popup-row"><span class="pr-label">Rasio Belanja</span><span class="pr-val">'+(s.rasioBelanja*100).toFixed(1)+'%</span></div>';
-        popup+='<div class="popup-row"><span class="pr-label">SILPA/Pendapatan</span><span class="pr-val">'+(s.silpaRatio*100).toFixed(1)+'%</span></div>';
-        if(s.inflasi!==null)popup+='<div class="popup-row"><span class="pr-label">Inflasi YoY</span><span class="pr-val">'+s.inflasi.toFixed(2)+'%</span></div>';
-      }
-      layer.bindPopup(popup);
-      layer.on('mouseover',()=>layer.setStyle({weight:3,color:'#1565C0',fillOpacity:.9}));
-      layer.on('mouseout',()=>geoLayer.resetStyle(layer));
-    }
-  }).addTo(leafletMap);
-  leafletMap.fitBounds(geoLayer.getBounds().pad(0.05));
-}
-
-function drawAnalisisCharts(){
-  const scores=computeScores();
-  const nasInf=getNasionalInflasi()||2.5;
-
-  // Scatter: SILPA ratio vs Inflasi
-  const scatterData=scores.filter(s=>s.inflasi!==null).map(s=>({x:s.silpaRatio*100,y:s.inflasi,label:s.pemda.replace('Kabupaten ','Kab. ')}));
-  charts.scatter=new Chart(document.getElementById('cScatter'),{
-    type:'scatter',
-    data:{datasets:[{
-      data:scatterData.map(d=>({x:d.x,y:d.y})),
-      backgroundColor:scatterData.map(d=>d.y>nasInf&&d.x>50?'#EF5350':'#2196F3'),
-      pointRadius:8,pointHoverRadius:11,
-    }]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},
-        tooltip:{callbacks:{title:function(items){const i=items[0].dataIndex;return scatterData[i].label;},label:function(ctx){const i=ctx.dataIndex;return'SILPA: '+scatterData[i].x.toFixed(1)+'%  |  Inflasi: '+scatterData[i].y.toFixed(2)+'%';}}},
-        annotation:undefined},
-      scales:{
-        x:{title:{display:true,text:'Rasio SILPA / Pendapatan (%)',font:{family:'Inter',size:10,weight:'600'},color:'#64748B'},grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'}},
-        y:{title:{display:true,text:'Inflasi YoY (%)',font:{family:'Inter',size:10,weight:'600'},color:'#64748B'},grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'}}
-      }}
-  });
-
-  // Real belanja line
-  const yrs=[...new Set(apbnData.map(r=>r.thn))].sort();
-  const allM=[...new Set(apbnData.map(r=>r.bln))].sort((a,b)=>a-b);
-  // Build series: for each year+month, get belanja real and deflate by Maluku inflation
-  const nominalDS={label:'Belanja Nominal',data:[],borderColor:'#EF5350',backgroundColor:'#EF535018',fill:true,tension:.3,pointRadius:4,borderWidth:2.5};
-  const realDS={label:'Belanja Riil (deflasi)',data:[],borderColor:'#1B3A5C',backgroundColor:'#1B3A5C18',fill:true,tension:.3,pointRadius:4,borderWidth:2.5,borderDash:[5,3]};
-  const labels=[];
-  yrs.forEach(yr=>{
-    const mos=[...new Set(apbnData.filter(r=>r.thn===yr).map(r=>r.bln))].sort((a,b)=>a-b);
-    mos.forEach(m=>{
-      const bel=sg(gf(yr,m),'belanja');
-      const inf=getMalukuInflasiForMonth(yr,m);
-      labels.push(BLN[m]+' '+String(yr).slice(2));
-      nominalDS.data.push(bel.real/1e9);
-      realDS.data.push(inf!==null?bel.real/(1+inf/100)/1e9:bel.real/1e9);
-    });
-  });
-  charts.realBel=new Chart(document.getElementById('cRealBelanja'),{
-    type:'line',data:{labels,datasets:[nominalDS,realDS]},
-    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
-      plugins:{legend:{position:'top',labels:{font:{family:'Inter',size:10},usePointStyle:true,pointStyle:'circle',padding:12}},tooltip:{mode:'index',intersect:false,callbacks:{label:c=>c.dataset.label+': Rp '+(c.parsed.y?.toFixed(2)||'—')+' M'}}},
-      scales:{x:{grid:{display:false},ticks:{font:{family:'Inter',size:9}}},y:{grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v.toLocaleString()},title:{display:true,text:'Miliar Rp',font:{family:'Inter',size:9,weight:'600'},color:'#94A3B8'}}}}
-  });
+// ═══ MAP GENERIC ═══
+function initMap(id,styleFn,popupFn){
+  if(!D.geo||!document.getElementById(id))return;
+  lmap=L.map(id,{scrollWheelZoom:false}).setView([-3.7,128.2],6);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',{attribution:'©CartoDB',maxZoom:12}).addTo(lmap);
+  glayer=L.geoJSON(D.geo,{style:styleFn,onEachFeature:(f,layer)=>{layer.bindPopup(popupFn(f));layer.on('mouseover',()=>layer.setStyle({weight:3,color:'#1565C0',fillOpacity:.9}));layer.on('mouseout',()=>glayer.resetStyle(layer));}}).addTo(lmap);
+  lmap.fitBounds(glayer.getBounds().pad(0.05));
 }
 
 // ═══ EVENTS ═══
 function bindEvents(){
-  const sY=document.getElementById('sY'),sM=document.getElementById('sM'),bY=document.getElementById('bYoY'),sMa=document.getElementById('sMApbd'),sMe=document.getElementById('sMetric');
-  if(sY)sY.onchange=e=>{apbnYear=+e.target.value;apbnMonth=Math.max(...apbnData.filter(r=>r.thn===apbnYear).map(r=>r.bln));render();};
-  if(sM)sM.onchange=e=>{apbnMonth=+e.target.value;render();};
+  const sY=document.getElementById('sY'),sM=document.getElementById('sM'),bY=document.getElementById('bYoY'),sMa=document.getElementById('sMa'),sMe=document.getElementById('sMe');
+  if(sY)sY.onchange=e=>{apbnY=+e.target.value;apbnM=Math.max(...D.apbn.filter(r=>r.thn===apbnY).map(r=>r.bln));render();};
+  if(sM)sM.onchange=e=>{apbnM=+e.target.value;render();};
   if(bY)bY.onclick=()=>{apbnYoY=!apbnYoY;render();};
-  if(sMa)sMa.onchange=e=>{apbdMonth=+e.target.value;render();};
+  if(sMa)sMa.onchange=e=>{apbdM=+e.target.value;render();};
   if(sMe)sMe.onchange=e=>{apbdMetric=e.target.value;render();};
 }
-document.getElementById('subTabs').addEventListener('click',e=>{const tab=e.target.dataset.tab;if(!tab)return;activeTab=tab;document.querySelectorAll('.sub-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));render();});
+document.getElementById('subTabs').addEventListener('click',e=>{const t=e.target.dataset?.tab;if(t){tab=t;render();}});
+document.getElementById('srcDJPb').addEventListener('click',()=>{source='djpb';tab='apbn';document.getElementById('srcDJPb').classList.add('active');document.getElementById('srcBPS').classList.remove('active');render();});
+document.getElementById('srcBPS').addEventListener('click',()=>{source='bps';tab='profil';document.getElementById('srcBPS').classList.add('active');document.getElementById('srcDJPb').classList.remove('active');render();});
 loadAll();
 </script>
 </body>
