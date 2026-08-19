@@ -387,16 +387,18 @@ function scoreTbl(sc,scPrev){let h='<table class="dt"><thead><tr><th>Kab/Kota</t
     h+='<tr><td>'+s.pemda.replace('Kabupaten ','Kab. ')+'</td><td><span class="sv" style="color:'+c+'">'+s.skor+'</span></td><td style="font-family:JetBrains Mono;font-size:.7rem;color:'+rcol+'">'+s.scoreMin+'–'+s.scoreMax+'</td>'+delta+'<td>'+s.sB_pct+'%</td><td>'+s.sS_pct+'%</td><td>'+s.sI_pct+'%</td><td><div class="sbw"><div class="sbt"><div class="sbf" style="width:'+s.skor+'%;background:'+c+'"></div></div></div></td></tr>';});
   return h+'</tbody></table>';}
 function drawAnalDJPb(){const curM=analM||apbdM;const scCur=computeScores(curM).filter(s=>s.inflasi!==null);const scPrev=analCmpMove&&curM>1?computeScores(curM-1).filter(s=>s.inflasi!==null):null;
-// Color by BI target zone: green within, red outside
+// Color by BI target zone: green within, red above, orange below
 const curColors=scCur.map(s=>(s.inflasi>=BI_TARGET_LOW&&s.inflasi<=BI_TARGET_HIGH)?'#66BB6A':(s.inflasi>BI_TARGET_HIGH?'#EF5350':'#FF8F00'));
-// Compute axis extents to draw the BI target band as background
-const xMax=Math.max(100,...scCur.map(s=>s.sr*100))*1.05;
-const yMin=Math.min(0,...scCur.map(s=>s.inflasi))-1;
-const yMax=Math.max(5,...scCur.map(s=>s.inflasi))+1;
+// Auto-fit axis to actual data range (with padding)
+const allX=scCur.map(s=>s.sr*100);if(scPrev)allX.push(...scPrev.map(s=>s.sr*100));
+const allY=scCur.map(s=>s.inflasi);if(scPrev)allY.push(...scPrev.map(s=>s.inflasi));
+const xDataMin=Math.min(...allX),xDataMax=Math.max(...allX),xPad=Math.max((xDataMax-xDataMin)*0.08,5);
+const xMin=Math.max(0,xDataMin-xPad),xMax=xDataMax+xPad;
+const yMin=Math.min(BI_TARGET_LOW-0.5,...allY)-0.5,yMax=Math.max(BI_TARGET_HIGH+0.5,...allY)+0.5;
 const datasets=[
-  // BI target band as filled area
-  {type:'line',label:'__band__',data:[{x:0,y:BI_TARGET_HIGH},{x:xMax,y:BI_TARGET_HIGH}],fill:{target:{value:BI_TARGET_LOW},above:'rgba(102,187,106,.08)'},borderColor:'rgba(102,187,106,.35)',borderWidth:1,borderDash:[4,4],pointRadius:0,tension:0},
-  {type:'line',label:'__band2__',data:[{x:0,y:BI_TARGET_LOW},{x:xMax,y:BI_TARGET_LOW}],borderColor:'rgba(102,187,106,.35)',borderWidth:1,borderDash:[4,4],pointRadius:0,fill:false},
+  // BI target band (green horizontal strip)
+  {type:'line',label:'__band__',data:[{x:xMin,y:BI_TARGET_HIGH},{x:xMax,y:BI_TARGET_HIGH}],fill:{target:{value:BI_TARGET_LOW},above:'rgba(102,187,106,.08)'},borderColor:'rgba(102,187,106,.35)',borderWidth:1,borderDash:[4,4],pointRadius:0,tension:0},
+  {type:'line',label:'__band2__',data:[{x:xMin,y:BI_TARGET_LOW},{x:xMax,y:BI_TARGET_LOW}],borderColor:'rgba(102,187,106,.35)',borderWidth:1,borderDash:[4,4],pointRadius:0,fill:false},
   {type:'scatter',label:'Saat ini',data:scCur.map(s=>({x:s.sr*100,y:s.inflasi})),backgroundColor:curColors,pointRadius:8,pointHoverRadius:11,borderColor:curColors,borderWidth:1}
 ];
 if(scPrev){
@@ -408,9 +410,8 @@ charts.scatter=new Chart(document.getElementById('cScatter'),{data:{datasets},op
     tooltip:{filter:it=>!it.dataset.label?.startsWith('__'),callbacks:{
       title:items=>{const it=items[0];const isCurr=it.dataset.label==='Saat ini';const arr=isCurr?scCur:scPrev;return(isCurr?'':'[Bulan Lalu] ')+arr[it.dataIndex].pemda.replace('Kabupaten ','Kab. ');},
       label:ctx=>{const isCurr=ctx.dataset.label==='Saat ini';const arr=isCurr?scCur:scPrev;const s=arr[ctx.dataIndex];const zone=s.inflasi>=BI_TARGET_LOW&&s.inflasi<=BI_TARGET_HIGH?' (dalam target BI)':s.inflasi>BI_TARGET_HIGH?' (di atas target)':' (di bawah target)';return'SILPA: '+(s.sr*100).toFixed(1)+'%  Inflasi: '+s.inflasi.toFixed(2)+'%'+zone;}}}},
-  scales:{x:{title:{display:true,text:'SILPA/Pendapatan (%)',font:{size:10,weight:'600'},color:'#64748B'},grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'},min:0,max:xMax},
-    y:{title:{display:true,text:'Inflasi YoY (%) — pita hijau = target BI 2.5% ± 1%',font:{size:10,weight:'600'},color:'#64748B'},grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'},min:yMin,max:yMax}}}});}
-function analMapStyle(f){const sc=computeScores(analM||apbdM);const p=w2a(f.properties.WADMKK);const s=sc.find(x=>x.pemda===p);return{fillColor:s?sCol(s.skor):'#E2E8F0',weight:1.5,color:'#fff',fillOpacity:.75};}
+  scales:{x:{title:{display:true,text:'SILPA/Pendapatan (%)',font:{size:10,weight:'600'},color:'#64748B'},grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'},min:xMin,max:xMax},
+    y:{title:{display:true,text:'Inflasi YoY (%) — pita hijau = target BI 2.5% ± 1%',font:{size:10,weight:'600'},color:'#64748B'},grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'},min:yMin,max:yMax}}}});}function analMapStyle(f){const sc=computeScores(analM||apbdM);const p=w2a(f.properties.WADMKK);const s=sc.find(x=>x.pemda===p);return{fillColor:s?sCol(s.skor):'#E2E8F0',weight:1.5,color:'#fff',fillOpacity:.75};}
 function analPopup(f){const sc=computeScores(analM||apbdM);const p=w2a(f.properties.WADMKK);const s=sc.find(x=>x.pemda===p);let h='<div class="ppt">'+f.properties.WADMKK+'</div>';if(s)h+='<div class="ppr"><span class="pl2">Skor</span><span class="pv2" style="color:'+sCol(s.skor)+'">'+s.skor+'/100</span></div><div class="ppr"><span class="pl2">Rasio Belanja</span><span class="pv2">'+(s.rb*100).toFixed(1)+'%</span></div>';return h;}
 
 // ═══ BPS PROFIL ═══
