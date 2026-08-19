@@ -89,7 +89,11 @@ table.dt tbody tr:hover{background:#F8FAFD}
 
 <script>
 // ═══ CONFIG ═══
-const FILES={apbn:'apbn.csv',apbd:'apbd.csv',inflasi:'inflasi.csv',pdrb:'pdrb.csv',penduduk:'penduduk.csv',kemiskinan:'kemiskinan.csv',ipm:'ipm.csv',pengangguran:'pengangguran.csv',gini:'gini.csv',geo:'maluku.geojson'};
+const FILES={apbn:'data/djpb/apbn.csv',apbd:'data/djpb/apbd.csv',inflasi:'data/djpb/inflasi.csv',pdrb:'data/bps/pdrb.csv',penduduk:'data/bps/penduduk.csv',kemiskinan:'data/bps/kemiskinan.csv',ipm:'data/bps/ipm.csv',pengangguran:'data/bps/pengangguran.csv',gini:'data/bps/gini.csv',geo:'data/geo/maluku.geojson'};
+// BI inflation target 2.5% ± 1% (band 1.5–3.5%)
+const BI_TARGET_LOW=1.5, BI_TARGET_HIGH=3.5;
+// Weight schemes for composite score sensitivity analysis
+const WEIGHT_SCHEMES={equal:[33.34,33.33,33.33],absorption:[50,25,25],efficiency:[25,50,25],stability:[25,25,50]};
 const KOMP={p_pajak_dn:{l:'Pajak Dalam Negeri',g:'pendapatan',o:1},p_pajak_ln:{l:'Pajak Perdagangan Intl.',g:'pendapatan',o:2},p_pnbp_lain:{l:'PNBP Lainnya',g:'pendapatan',o:3},p_blu:{l:'Pendapatan BLU',g:'pendapatan',o:4},b_pegawai:{l:'Belanja Pegawai',g:'belanja',o:5},b_barang:{l:'Belanja Barang',g:'belanja',o:6},b_modal:{l:'Belanja Modal',g:'belanja',o:7},b_bansos:{l:'Bantuan Sosial',g:'belanja',o:8},b_dbh:{l:'Dana Bagi Hasil',g:'tkdd',o:9},b_dakfisik:{l:'DAK Fisik',g:'tkdd',o:10},b_daknonfisik:{l:'DAK Non Fisik',g:'tkdd',o:11},b_dau:{l:'Dana Alokasi Umum',g:'tkdd',o:12},b_infis:{l:'Dana Insentif Daerah',g:'tkdd',o:13},b_danadesa:{l:'Dana Desa',g:'tkdd',o:14}};
 const GRP={pendapatan:'Pendapatan Negara',belanja:'Belanja K/L',tkdd:'Transfer ke Daerah & Dana Desa'};
 const GC={pendapatan:{bar:'#66BB6A'},belanja:{bar:'#EF5350'},tkdd:{bar:'#2196F3'}};
@@ -169,7 +173,7 @@ function setSubTabs(){
 function render(){
   dC();dM();setSubTabs();
   const main=document.getElementById('mainContent');
-  document.getElementById('cutoffBadge').textContent='Ver 0.1';
+  document.getElementById('cutoffBadge').textContent='ver 0.1';
   if(source==='djpb'){
     if(tab==='apbn')main.innerHTML=renderAPBN();
     else if(tab==='apbd')main.innerHTML=renderAPBD();
@@ -326,10 +330,37 @@ function drawInflasi(){
 // ═══ DJPb ANALISIS ═══
 function computeScores(month){
   const m=month||analM||apbdM;
-  const c=D.apbd.filter(r=>r.bln===m&&!r.pemda.startsWith('Provinsi'));const nasI=getInf('Nasional')||2.5,malI=getInf('Maluku')||nasI;
-  return c.map(r=>{const rb=r.pendapatan>0?Math.min(r.belanja/r.pendapatan,1.5):0,sB=Math.min(rb/.8*40,40),sr=r.pendapatan>0?Math.abs(r.silpa)/r.pendapatan:1,sS=Math.max(0,30-sr*30);
-    const lk=PEMDA_INF[r.pemda],li=lk?getInf(lk):malI,id=li!==null?Math.abs(li-nasI):2,sI=Math.max(0,30-id*5);const tot=Math.round(sB+sS+sI);
-    return{pemda:r.pemda,skor:tot,sB:Math.round(sB),sS:Math.round(sS),sI:Math.round(sI),pendapatan:r.pendapatan,belanja:r.belanja,silpa:r.silpa,rb,sr,inflasi:li,id};}).sort((a,b)=>b.skor-a.skor);}
+  const c=D.apbd.filter(r=>r.bln===m&&!r.pemda.startsWith('Provinsi'));
+  const malI=getInf('Maluku');
+  return c.map(r=>{
+    // Sub-scores normalized to 0-1
+    // A. Kecepatan Belanja: rasio belanja/pendapatan, target 0.8
+    const rb=r.pendapatan>0?Math.min(r.belanja/r.pendapatan,1.5):0;
+    const sB_raw=Math.min(rb/0.8,1);
+    // B. Efisiensi SILPA: rasio SILPA/pendapatan, lebih rendah = lebih baik
+    const sr=r.pendapatan>0?Math.abs(r.silpa)/r.pendapatan:1;
+    const sS_raw=Math.max(0,1-sr);
+    // C. Stabilitas Inflasi: deviasi dari target BI (2.5% ± 1%)
+    const lk=PEMDA_INF[r.pemda];
+    const li=lk?getInf(lk):malI;
+    let dev=2; // default penalty if no data
+    if(li!==null){
+      if(li<BI_TARGET_LOW)dev=BI_TARGET_LOW-li;
+      else if(li>BI_TARGET_HIGH)dev=li-BI_TARGET_HIGH;
+      else dev=0;
+    }
+    const sI_raw=Math.max(0,1-dev/3);
+    // Compute scores under all weight schemes for sensitivity
+    const scores={};
+    for(const[name,w]of Object.entries(WEIGHT_SCHEMES)){
+      scores[name]=sB_raw*w[0]+sS_raw*w[1]+sI_raw*w[2];
+    }
+    const vals=Object.values(scores);
+    return{pemda:r.pemda,skor:Math.round(scores.equal),
+      scoreMin:Math.round(Math.min(...vals)),scoreMax:Math.round(Math.max(...vals)),
+      sB_pct:Math.round(sB_raw*100),sS_pct:Math.round(sS_raw*100),sI_pct:Math.round(sI_raw*100),
+      pendapatan:r.pendapatan,belanja:r.belanja,silpa:r.silpa,rb,sr,inflasi:li,dev};
+  }).sort((a,b)=>b.skor-a.skor);}
 function renderAnalisisDJPb(){if(!D.apbd.length)return'<div class="errmsg">Data APBD diperlukan</div>';
   const mos=[...new Set(D.apbd.map(r=>r.bln))].sort((a,b)=>a-b);
   const curM=analM||apbdM;
@@ -345,29 +376,40 @@ function renderAnalisisDJPb(){if(!D.apbd.length)return'<div class="errmsg">Data 
       <button class="tbtn ${analCmpMove?'active':''}" id="bMove"${curM<=1?' disabled title="Butuh minimal 2 bulan data"':''}>⇄ Tampilkan Pergerakan vs Bulan Lalu</button>
     </div>
     <div class="insight">${ins}</div>
-    <div class="panels"><div class="panel"><div class="pt">Skor Posisi Relatif — ${BLN_F[curM]} ${apbnY||2026}</div><div class="ps">Kecepatan Belanja (40) + Efisiensi SILPA (30) + Stabilitas Inflasi (30)</div><div class="tw">${scoreTbl(sc,scPrev)}</div></div><div class="panel"><div class="pt">Peta Skor</div><div id="mapAnal" class="mc"></div><div class="ml"><span>Rendah</span><div class="lb"><span style="background:#FFCDD2"></span><span style="background:#FFB74D"></span><span style="background:#66BB6A"></span><span style="background:#2E7D32"></span></div><span>Tinggi</span></div></div></div>
-    <div class="panels"><div class="panel pf"><div class="pt">Fiskal vs Inflasi${analCmpMove?' — dengan Pergerakan':''}</div><div class="ps">X: SILPA/Pendapatan · Y: Inflasi YoY${analCmpMove?' · lingkaran kosong = posisi bulan lalu'.replace(':','')+' · garis putus-putus = pergerakan':' — kuadran kanan-atas = SILPA tinggi + inflasi tinggi'}</div><div class="cw"><canvas id="cScatter" height="300"></canvas></div></div></div></div>`;}
+    <div class="panels"><div class="panel"><div class="pt">Skor Komposit — ${BLN_F[curM]} ${apbnY||2026}</div><div class="ps">Bobot seimbang (33/33/33); rentang = skor di bawah bobot alternatif (belanja-fokus 50/25/25, silpa-fokus 25/50/25, inflasi-fokus 25/25/50). Stabilitas inflasi diukur terhadap target BI 2.5% ± 1%.</div><div class="tw">${scoreTbl(sc,scPrev)}</div></div><div class="panel"><div class="pt">Peta Skor</div><div id="mapAnal" class="mc"></div><div class="ml"><span>Rendah</span><div class="lb"><span style="background:#FFCDD2"></span><span style="background:#FFB74D"></span><span style="background:#66BB6A"></span><span style="background:#2E7D32"></span></div><span>Tinggi</span></div></div></div>
+    <div class="panels"><div class="panel pf"><div class="pt">Fiskal vs Inflasi${analCmpMove?' — dengan Pergerakan':''}</div><div class="ps">X: SILPA/Pendapatan · Y: Inflasi YoY${analCmpMove?' — lingkaran kosong = posisi bulan lalu · garis putus-putus = pergerakan':' — kuadran kanan-atas = SILPA tinggi + inflasi tinggi (zona perhatian). Zona hijau = dalam target BI (1.5–3.5%)'}</div><div class="cw"><canvas id="cScatter" height="300"></canvas></div></div></div></div>`;}
 
-function scoreTbl(sc,scPrev){let h='<table class="dt"><thead><tr><th>Kab/Kota</th><th>Skor</th>'+(scPrev?'<th>Δ</th>':'')+'<th>Bel</th><th>SIL</th><th>Inf</th><th style="width:120px"></th></tr></thead><tbody>';
+function scoreTbl(sc,scPrev){let h='<table class="dt"><thead><tr><th>Kab/Kota</th><th>Skor</th><th>Rentang</th>'+(scPrev?'<th>Δ</th>':'')+'<th>Belanja</th><th>SILPA</th><th>Inflasi</th><th style="width:100px"></th></tr></thead><tbody>';
   sc.forEach(s=>{const c=sCol(s.skor);let delta='';if(scPrev){const p=scPrev.find(x=>x.pemda===s.pemda);if(p){const d=s.skor-p.skor;delta='<td style="color:'+(d>=0?'var(--mint)':'var(--coral)')+'">'+(d>=0?'+':'')+d+'</td>';}else delta='<td>—</td>';}
-    h+='<tr><td>'+s.pemda.replace('Kabupaten ','Kab. ')+'</td><td><span class="sv" style="color:'+c+'">'+s.skor+'</span></td>'+delta+'<td>'+s.sB+'/40</td><td>'+s.sS+'/30</td><td>'+s.sI+'/30</td><td><div class="sbw"><div class="sbt"><div class="sbf" style="width:'+s.skor+'%;background:'+c+'"></div></div></div></td></tr>';});
+    // Range indicator: color-code if wide (>15 pts) to signal weight-sensitivity
+    const rw=s.scoreMax-s.scoreMin;
+    const rcol=rw>15?'var(--amber)':'var(--muted)';
+    h+='<tr><td>'+s.pemda.replace('Kabupaten ','Kab. ')+'</td><td><span class="sv" style="color:'+c+'">'+s.skor+'</span></td><td style="font-family:JetBrains Mono;font-size:.7rem;color:'+rcol+'">'+s.scoreMin+'–'+s.scoreMax+'</td>'+delta+'<td>'+s.sB_pct+'%</td><td>'+s.sS_pct+'%</td><td>'+s.sI_pct+'%</td><td><div class="sbw"><div class="sbt"><div class="sbf" style="width:'+s.skor+'%;background:'+c+'"></div></div></div></td></tr>';});
   return h+'</tbody></table>';}
-function drawAnalDJPb(){const curM=analM||apbdM;const scCur=computeScores(curM).filter(s=>s.inflasi!==null);const scPrev=analCmpMove&&curM>1?computeScores(curM-1).filter(s=>s.inflasi!==null):null;const nasI=getInf('Nasional')||2.5;
-const curColors=scCur.map(s=>s.inflasi>nasI&&s.sr>.5?'#EF5350':'#2196F3');
-const datasets=[{type:'scatter',label:'Saat ini',data:scCur.map(s=>({x:s.sr*100,y:s.inflasi})),backgroundColor:curColors,pointRadius:8,pointHoverRadius:11,borderColor:curColors,borderWidth:1}];
+function drawAnalDJPb(){const curM=analM||apbdM;const scCur=computeScores(curM).filter(s=>s.inflasi!==null);const scPrev=analCmpMove&&curM>1?computeScores(curM-1).filter(s=>s.inflasi!==null):null;
+// Color by BI target zone: green within, red outside
+const curColors=scCur.map(s=>(s.inflasi>=BI_TARGET_LOW&&s.inflasi<=BI_TARGET_HIGH)?'#66BB6A':(s.inflasi>BI_TARGET_HIGH?'#EF5350':'#FF8F00'));
+// Compute axis extents to draw the BI target band as background
+const xMax=Math.max(100,...scCur.map(s=>s.sr*100))*1.05;
+const yMin=Math.min(0,...scCur.map(s=>s.inflasi))-1;
+const yMax=Math.max(5,...scCur.map(s=>s.inflasi))+1;
+const datasets=[
+  // BI target band as filled area
+  {type:'line',label:'__band__',data:[{x:0,y:BI_TARGET_HIGH},{x:xMax,y:BI_TARGET_HIGH}],fill:{target:{value:BI_TARGET_LOW},above:'rgba(102,187,106,.08)'},borderColor:'rgba(102,187,106,.35)',borderWidth:1,borderDash:[4,4],pointRadius:0,tension:0},
+  {type:'line',label:'__band2__',data:[{x:0,y:BI_TARGET_LOW},{x:xMax,y:BI_TARGET_LOW}],borderColor:'rgba(102,187,106,.35)',borderWidth:1,borderDash:[4,4],pointRadius:0,fill:false},
+  {type:'scatter',label:'Saat ini',data:scCur.map(s=>({x:s.sr*100,y:s.inflasi})),backgroundColor:curColors,pointRadius:8,pointHoverRadius:11,borderColor:curColors,borderWidth:1}
+];
 if(scPrev){
-  // Previous positions (hollow)
   datasets.push({type:'scatter',label:'Bulan Lalu',data:scPrev.map(s=>({x:s.sr*100,y:s.inflasi})),backgroundColor:'transparent',borderColor:'#94A3B8',borderWidth:1.5,pointRadius:5,pointHoverRadius:7,pointStyle:'circle'});
-  // Movement lines per pemda (hidden from legend)
   scCur.forEach(s=>{const p=scPrev.find(x=>x.pemda===s.pemda);if(p)datasets.push({type:'line',label:'__mv__'+s.pemda,data:[{x:p.sr*100,y:p.inflasi},{x:s.sr*100,y:s.inflasi}],showLine:true,borderColor:'rgba(148,163,184,.5)',borderWidth:1,borderDash:[3,3],pointRadius:0});});
 }
 charts.scatter=new Chart(document.getElementById('cScatter'),{data:{datasets},options:{responsive:true,maintainAspectRatio:false,
-  plugins:{legend:{labels:{filter:item=>!item.text||!item.text.startsWith('__mv__'),font:{size:10},usePointStyle:true,padding:12}},
-    tooltip:{filter:it=>!it.dataset.label?.startsWith('__mv__'),callbacks:{
-      title:items=>{const it=items[0];const isCurr=it.datasetIndex===0;const arr=isCurr?scCur:scPrev;return(isCurr?'':'[Bulan Lalu] ')+arr[it.dataIndex].pemda.replace('Kabupaten ','Kab. ');},
-      label:ctx=>{const isCurr=ctx.datasetIndex===0;const arr=isCurr?scCur:scPrev;const s=arr[ctx.dataIndex];return'SILPA: '+(s.sr*100).toFixed(1)+'%  Inflasi: '+s.inflasi.toFixed(2)+'%';}}}},
-  scales:{x:{title:{display:true,text:'SILPA/Pendapatan (%)',font:{size:10,weight:'600'},color:'#64748B'},grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'}},
-    y:{title:{display:true,text:'Inflasi YoY (%)',font:{size:10,weight:'600'},color:'#64748B'},grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'}}}}});}
+  plugins:{legend:{labels:{filter:item=>!item.text||!item.text.startsWith('__'),font:{size:10},usePointStyle:true,padding:12}},
+    tooltip:{filter:it=>!it.dataset.label?.startsWith('__'),callbacks:{
+      title:items=>{const it=items[0];const isCurr=it.dataset.label==='Saat ini';const arr=isCurr?scCur:scPrev;return(isCurr?'':'[Bulan Lalu] ')+arr[it.dataIndex].pemda.replace('Kabupaten ','Kab. ');},
+      label:ctx=>{const isCurr=ctx.dataset.label==='Saat ini';const arr=isCurr?scCur:scPrev;const s=arr[ctx.dataIndex];const zone=s.inflasi>=BI_TARGET_LOW&&s.inflasi<=BI_TARGET_HIGH?' (dalam target BI)':s.inflasi>BI_TARGET_HIGH?' (di atas target)':' (di bawah target)';return'SILPA: '+(s.sr*100).toFixed(1)+'%  Inflasi: '+s.inflasi.toFixed(2)+'%'+zone;}}}},
+  scales:{x:{title:{display:true,text:'SILPA/Pendapatan (%)',font:{size:10,weight:'600'},color:'#64748B'},grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'},min:0,max:xMax},
+    y:{title:{display:true,text:'Inflasi YoY (%) — pita hijau = target BI 2.5% ± 1%',font:{size:10,weight:'600'},color:'#64748B'},grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'},min:yMin,max:yMax}}}});}
 function analMapStyle(f){const sc=computeScores(analM||apbdM);const p=w2a(f.properties.WADMKK);const s=sc.find(x=>x.pemda===p);return{fillColor:s?sCol(s.skor):'#E2E8F0',weight:1.5,color:'#fff',fillOpacity:.75};}
 function analPopup(f){const sc=computeScores(analM||apbdM);const p=w2a(f.properties.WADMKK);const s=sc.find(x=>x.pemda===p);let h='<div class="ppt">'+f.properties.WADMKK+'</div>';if(s)h+='<div class="ppr"><span class="pl2">Skor</span><span class="pv2" style="color:'+sCol(s.skor)+'">'+s.skor+'/100</span></div><div class="ppr"><span class="pl2">Rasio Belanja</span><span class="pv2">'+(s.rb*100).toFixed(1)+'%</span></div>';return h;}
 
@@ -381,7 +423,7 @@ function renderBPS(){
   const totPop=D.penduduk.reduce((s,r)=>s+r.p26,0);
   const pdrbPCAnnual=totPop?(pdrbAnnual(totPDRB)/totPop*1e9/1e6).toFixed(1):'-'; // Juta/tahun
   return`<div>
-  <p style="font-size:.72rem;color:var(--sub);margin-bottom:1rem"><em>Catatan: PDRB adalah data Q1 2026 (BPS terbaru). IPM, Kemiskinan, Gini, Pengangguran adalah data 2025.</em></p>
+  <p style="font-size:.72rem;color:var(--sub);margin-bottom:1rem"><em>Catatan: PDRB adalah data Q1 2026 (BPS terbaru); estimasi setahun dihitung Q1 × 4 (asumsi kasar, belum memperhitungkan pola musiman). IPM, Kemiskinan, Gini, Pengangguran adalah data 2025.</em></p>
   <div class="kg">
     <div class="kc cp"><div class="kl">IPM Rata-rata 2025</div><div class="kv">${avgIPM}</div></div>
     <div class="kc cr"><div class="kl">Kemiskinan Rata-rata 2025</div><div class="kv">${avgMiskin}<span class="u">%</span></div></div>
@@ -454,11 +496,11 @@ function renderAnalisisFull(){
   </div>
   <div class="insight">${ins}</div>
   <div class="panels">
-    <div class="panel"><div class="pt">Belanja/Kap ${BLN_F[curM]} vs Kemiskinan 2025${analCmpMove?' — dgn Pergerakan':''}</div><div class="ps">Titik merah = kemiskinan >20% & belanja di bawah rata-rata (potensi under-investment)</div><div class="cw"><canvas id="cBelPC" height="300"></canvas></div></div>
-    <div class="panel"><div class="pt">Peta Belanja per Kapita ${BLN_F[curM]}</div><div class="ps">Estimasi setahun (YTD ÷ bulan × 12)</div><div id="mapFull" class="mc"></div><div class="ml"><span>Rendah</span><div class="lb"><span style="background:#E3F2FD"></span><span style="background:#42A5F5"></span><span style="background:#1565C0"></span></div><span>Tinggi</span></div></div>
+    <div class="panel"><div class="pt">Belanja/Kap ${BLN_F[curM]} vs Kemiskinan 2025${analCmpMove?' — dgn Pergerakan':''}</div><div class="ps">Titik merah = kemiskinan >20% & belanja di bawah rata-rata (potensi under-investment). Belanja disetahunkan secara kasar (YTD × 12/bulan) — realisasi biasanya back-loaded di semester II.</div><div class="cw"><canvas id="cBelPC" height="300"></canvas></div></div>
+    <div class="panel"><div class="pt">Peta Belanja per Kapita ${BLN_F[curM]}</div><div class="ps">Estimasi setahun (YTD × 12/bulan) — asumsi realisasi seragam</div><div id="mapFull" class="mc"></div><div class="ml"><span>Rendah</span><div class="lb"><span style="background:#E3F2FD"></span><span style="background:#42A5F5"></span><span style="background:#1565C0"></span></div><span>Tinggi</span></div></div>
   </div>
   <div class="panels">
-    <div class="panel"><div class="pt">Rasio Belanja / PDRB${analCmpMove?' — dgn Bulan Lalu':''}</div><div class="ps">Intensitas fiskal daerah relatif ukuran ekonomi lokal (keduanya disetahunkan)</div><div class="cw"><canvas id="cBelPDRB" height="300"></canvas></div></div>
+    <div class="panel"><div class="pt">Rasio Belanja / PDRB${analCmpMove?' — dgn Bulan Lalu':''}</div><div class="ps">Belanja setahun (YTD × 12/bulan) ÷ PDRB setahun (Q1 × 4). Keduanya estimasi kasar.</div><div class="cw"><canvas id="cBelPDRB" height="300"></canvas></div></div>
     <div class="panel"><div class="pt">PDRB/Kap Setahun vs IPM 2025</div><div class="ps">Data statis (tidak berubah antar bulan) — apakah ekonomi yang besar menghasilkan pembangunan manusia?</div><div class="cw"><canvas id="cPCvsIPM" height="300"></canvas></div></div>
   </div>
   <div class="panel pf"><div class="pt">Tabel Lintas Data</div><div class="tw">${crossTbl(cross)}</div></div></div>`;}
