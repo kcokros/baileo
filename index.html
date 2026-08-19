@@ -129,7 +129,7 @@ async function loadAll(){
     D.inflasi=c.filter(r=>r.waktu).map(r=>({waktu:r.waktu.trim(),loc:r.nama_pemda.trim(),mom:r.inflasi_bulanan!==''&&r.inflasi_bulanan!=null?+r.inflasi_bulanan:null,yoy:r.inflasi_tahunan!==''&&r.inflasi_tahunan!=null?+r.inflasi_tahunan:null}));
     D.pdrb=p.map(r=>({kk:r.kab_kota.trim(),adhb:+r.pdrb_adhb_q1||0,qtq:+r.growth_qtq_q1||0}));
     D.penduduk=pop.map(r=>({kk:r.kab_kota.trim(),p24:+r.pop_2024||0,p25:+r.pop_2025||0,p26:+r.pop_2026||0}));
-    D.kemiskinan=k.map(r=>({kk:r.kab_kota.trim(),m23:+r.miskin_2023||0,m24:+r.miskin_2024||0,m25:+r.miskin_2025||0}));
+    D.kemiskinan=k.map(r=>({kk:r.kab_kota.trim(),m20:+r.miskin_2020||0,m21:+r.miskin_2021||0,m22:+r.miskin_2022||0,m23:+r.miskin_2023||0,m24:+r.miskin_2024||0,m25:+r.miskin_2025||0}));
     D.ipm=ipm.map(r=>({kk:r.kab_kota.trim(),i23:+r.ipm_2023||0,i24:+r.ipm_2024||0,i25:+r.ipm_2025||0}));
     D.pengangguran=ng.map(r=>({kk:r.kab_kota.trim(),pg23:+r.pengangguran_2023||0,pg24:+r.pengangguran_2024||0,pg25:+r.pengangguran_2025||0}));
     D.gini=gi.map(r=>({kk:r.kab_kota.trim(),g23:+r.gini_2023||0,g24:+r.gini_2024||0,g25:+r.gini_2025||0}));
@@ -453,7 +453,7 @@ function renderBPS(){
   </div>
   <div class="panels">
     <div class="panel"><div class="pt">IPM 2025 vs Kemiskinan 2025</div><div class="ps">Tiap titik = satu kab/kota · titik merah = kemiskinan >20%</div><div class="cw"><canvas id="cIPMvsMiskin" height="280"></canvas></div></div>
-    <div class="panel"><div class="pt">Tren Kemiskinan 2023–2025</div><div class="cw"><canvas id="cMiskinTrend" height="280"></canvas></div></div>
+    <div class="panel"><div class="pt">Tren Kemiskinan Tahunan</div><div class="cw"><canvas id="cMiskinTrend" height="280"></canvas></div></div>
   </div>
   <div class="panel pf"><div class="pt">Profil Kab/Kota</div><div class="tw">${bpsTbl()}</div></div></div>`;}
 
@@ -475,7 +475,7 @@ function drawBPS(){
 
   // Kemiskinan trend
   const kks=D.kemiskinan.map(r=>r.kk);
-  charts.misTrend=new Chart(document.getElementById('cMiskinTrend'),{type:'line',data:{labels:['2023','2024','2025'],datasets:kks.map((k,i)=>({label:k.replace('Kepulauan ','Kep. '),data:[bpsLookup(k,D.kemiskinan,'m23'),bpsLookup(k,D.kemiskinan,'m24'),bpsLookup(k,D.kemiskinan,'m25')],borderColor:KAB_PAL[i%KAB_PAL.length],tension:.3,pointRadius:4,borderWidth:2,fill:false}))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom',labels:{font:{size:8},usePointStyle:true,boxWidth:8,padding:8}},tooltip:{mode:'index',intersect:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'}}}}});
+  charts.misTrend=new Chart(document.getElementById('cMiskinTrend'),{type:'line',data:{labels:['2020','2021','2022','2023','2024','2025'],datasets:kks.map((k,i)=>({label:k.replace('Kepulauan ','Kep. '),data:[bpsLookup(k,D.kemiskinan,'m20'),bpsLookup(k,D.kemiskinan,'m21'),bpsLookup(k,D.kemiskinan,'m22'),bpsLookup(k,D.kemiskinan,'m23'),bpsLookup(k,D.kemiskinan,'m24'),bpsLookup(k,D.kemiskinan,'m25')],borderColor:KAB_PAL[i%KAB_PAL.length],tension:.3,pointRadius:3,borderWidth:2,fill:false}))},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom',labels:{font:{size:8},usePointStyle:true,boxWidth:8,padding:8}},tooltip:{mode:'index',intersect:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'}}}}});
 }
 function bpsMapStyle(f){const w=f.properties.WADMKK;const kk=w.startsWith('Kota')?w.replace('Kota ',''):w;const r=D.ipm.find(x=>x.kk===kk||x.kk===w.replace('Kota ',''));const v=r?r.i25:null;if(!v)return{fillColor:'#E2E8F0',weight:1.5,color:'#fff',fillOpacity:.7};const mn=60,mx=85;const t=Math.max(0,Math.min(1,(v-mn)/(mx-mn)));const col=t<.33?`rgb(${239},${83+t*3*100},${80})`:t<.66?`rgb(${255},${235},${59})`:(`rgb(${102-t*60},${187},${106})`);return{fillColor:col,weight:1.5,color:'#fff',fillOpacity:.75};}
 function bpsPopup(f){const w=f.properties.WADMKK;const kk=w.startsWith('Kota')?w.replace('Kota ',''):w;const ipm=D.ipm.find(x=>x.kk===kk||x.kk===w.replace('Kota ',''));const mis=D.kemiskinan.find(x=>x.kk===kk||x.kk===w.replace('Kota ',''));const pop=D.penduduk.find(x=>x.kk===kk||x.kk===w.replace('Kota ',''));
