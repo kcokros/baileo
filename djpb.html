@@ -288,7 +288,7 @@ function initMap(id,styleFn,popupFn){if(!D.geo||!document.getElementById(id))ret
 
 // ═══ EVENTS ═══
 function bindEvents(){
-  const sY=document.getElementById('sY'),sM=document.getElementById('sM'),sCmp=document.getElementById('sCmp'),sKomp=document.getElementById('sKomp'),sMa=document.getElementById('sMa'),sMe=document.getElementById('sMe'),sGrp=document.getElementById('sGrp'),sACmp=document.getElementById('sACmp'),sRange=document.getElementById('sRange'),pillLoc=document.getElementById('pillLoc'),sAnalM=document.getElementById('sAnalM'),bMove=document.getElementById('bMove'),sKurY=document.getElementById('sKurY'),sKurSk=document.getElementById('sKurSk'),sKurSe=document.getElementById('sKurSe');
+  const sY=document.getElementById('sY'),sM=document.getElementById('sM'),sCmp=document.getElementById('sCmp'),sKomp=document.getElementById('sKomp'),sMa=document.getElementById('sMa'),sMe=document.getElementById('sMe'),sGrp=document.getElementById('sGrp'),sACmp=document.getElementById('sACmp'),sRange=document.getElementById('sRange'),pillLoc=document.getElementById('pillLoc'),sAnalM=document.getElementById('sAnalM'),bMove=document.getElementById('bMove'),sKurYF=document.getElementById('sKurYF'),sKurYT=document.getElementById('sKurYT'),sKurWil=document.getElementById('sKurWil'),sKurSk=document.getElementById('sKurSk'),sKurSe=document.getElementById('sKurSe');
   if(sY)sY.onchange=e=>{apbnY=+e.target.value;apbnM=Math.max(...D.apbn.filter(r=>r.thn===apbnY).map(r=>r.bln));render();};
   if(sM)sM.onchange=e=>{apbnM=+e.target.value;render();};
   if(sCmp)sCmp.onchange=e=>{apbnCmp=e.target.value;render();};
