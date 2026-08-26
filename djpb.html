@@ -109,7 +109,7 @@ function kurWil2pemda(w){if(w.startsWith('Kota'))return w;return w.replace('Kab.
 // ═══ STATE ═══
 let D={apbn:[],apbd:[],inflasi:[],kur:[],geo:null};
 let tab='apbn',apbnY,apbnM,apbnCmp='',apbnKomp='',apbdM,apbdMetric='pendapatan',apbdGrp='',apbdCmp='',analM=null,analCmpMove=false,infRange=24,infLocs=['Maluku','Ambon','Tual','MalukuTengah','Nasional'];
-let kurYear=null,kurSkema='',kurSektor='';
+let kurYearFrom=null,kurYearTo=null,kurSkema='',kurSektor='',kurWilayah='';
 let charts={},lmap=null,glayer=null;
 
 // ═══ LOAD ═══
@@ -221,21 +221,24 @@ function drawInflasi(){const allT=[...new Set(D.inflasi.filter(r=>r.yoy!==null).
 const allMd=D.inflasi.filter(r=>r.loc==='Maluku'&&r.mom!==null).sort((a,b)=>a.waktu.localeCompare(b.waktu));const md=infRange>=999?allMd:allMd.slice(-infRange);charts.mom=new Chart(document.getElementById('cMoM'),{type:'bar',data:{labels:md.map(r=>{const[y,m]=r.waktu.split('/');return BLN[+m]+' '+y.slice(2);}),datasets:[{data:md.map(r=>r.mom),backgroundColor:md.map(r=>r.mom>=0?'#66BB6A':'#EF5350'),borderRadius:3,barPercentage:.75}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:8},maxTicksLimit:24}},y:{grid:{color:'#F1F5F9'},ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v+'%'}}}}});}
 
 // ═══ KUR ═══
-function kurFiltered(){let d=D.kur;if(kurYear)d=d.filter(r=>r.thn===kurYear);if(kurSkema)d=d.filter(r=>r.skema===kurSkema);if(kurSektor)d=d.filter(r=>r.sektor===kurSektor);return d;}
+function kurFiltered(){let d=D.kur;if(kurYearFrom)d=d.filter(r=>r.thn>=kurYearFrom);if(kurYearTo)d=d.filter(r=>r.thn<=kurYearTo);if(kurSkema)d=d.filter(r=>r.skema===kurSkema);if(kurSektor)d=d.filter(r=>r.sektor===kurSektor);if(kurWilayah)d=d.filter(r=>r.wilayah===kurWilayah);return d;}
 function kurByWilayah(d){const map={};d.forEach(r=>{const w=r.wilayah;if(!map[w])map[w]={wilayah:w,debitur:0,penyaluran:0,outstanding:0};map[w].debitur+=r.debitur;map[w].penyaluran+=r.penyaluran;map[w].outstanding+=r.outstanding;});return Object.values(map).sort((a,b)=>b.penyaluran-a.penyaluran);}
 function renderKUR(){
   if(!D.kur.length)return'<div class="errmsg">kur.csv tidak ditemukan</div>';
-  const yrs=[...new Set(D.kur.map(r=>r.thn))].sort((a,b)=>b-a);
+  const yrs=[...new Set(D.kur.map(r=>r.thn))].sort((a,b)=>a-b);
   const skemas=[...new Set(D.kur.map(r=>r.skema))].sort();
   const sektors=[...new Set(D.kur.map(r=>r.sektor))].sort();
+  const wilayahs=[...new Set(D.kur.map(r=>r.wilayah))].sort();
   const d=kurFiltered();
   const totP=d.reduce((s,r)=>s+r.penyaluran,0),totD=d.reduce((s,r)=>s+r.debitur,0),totO=d.reduce((s,r)=>s+r.outstanding,0);
   const avgPerD=totD>0?totP/totD:0;
   const banks=[...new Set(d.map(r=>r.bank))].length;
   return`<div><div class="controls">
-    <div class="cg"><label>Tahun</label><select id="sKurY"><option value="">Semua</option>${yrs.map(y=>'<option value="'+y+'"'+(kurYear===y?' selected':'')+'>'+y+'</option>').join('')}</select></div>
+    <div class="cg"><label>Dari</label><select id="sKurYF"><option value="">—</option>${yrs.map(y=>'<option value="'+y+'"'+(kurYearFrom===y?' selected':'')+'>'+y+'</option>').join('')}</select></div>
+    <div class="cg"><label>s.d.</label><select id="sKurYT"><option value="">—</option>${yrs.map(y=>'<option value="'+y+'"'+(kurYearTo===y?' selected':'')+'>'+y+'</option>').join('')}</select></div>
     <div class="cg"><label>Skema</label><select id="sKurSk"><option value="">Semua</option>${skemas.map(s=>'<option value="'+s+'"'+(kurSkema===s?' selected':'')+'>'+s+'</option>').join('')}</select></div>
     <div class="cg"><label>Sektor</label><select id="sKurSe"><option value="">Semua</option>${sektors.map(s=>'<option value="'+s+'"'+(kurSektor===s?' selected':'')+'>'+s.substring(0,30)+'</option>').join('')}</select></div>
+    <div class="cg"><label>Wilayah</label><select id="sKurWil"><option value="">Semua</option>${wilayahs.map(w=>'<option value="'+w+'"'+(kurWilayah===w?' selected':'')+'>'+w+'</option>').join('')}</select></div>
   </div>
   <div class="kg">
     <div class="kc cg1"><div class="kl">Total Penyaluran</div><div class="kv">${fmt(totP)}<span class="u">${fU(totP)}</span></div></div>
@@ -255,9 +258,7 @@ function renderKUR(){
 function kurTbl(rows){let h='<table class="dt"><thead><tr><th>Wilayah</th><th>Debitur</th><th>Penyaluran</th><th>Outstanding</th><th>Rata-rata/Debitur</th></tr></thead><tbody>';rows.forEach(r=>{h+='<tr><td>'+r.wilayah+'</td><td>'+r.debitur.toLocaleString('id-ID')+'</td><td>'+(r.penyaluran/1e9).toFixed(2)+' M</td><td>'+(r.outstanding/1e9).toFixed(2)+' M</td><td>'+(r.debitur?fmt(r.penyaluran/r.debitur)+fU(r.penyaluran/r.debitur):'—')+'</td></tr>';});const tP=rows.reduce((s,r)=>s+r.penyaluran,0),tD=rows.reduce((s,r)=>s+r.debitur,0),tO=rows.reduce((s,r)=>s+r.outstanding,0);h+='<tr class="grp"><td>Total</td><td>'+tD.toLocaleString('id-ID')+'</td><td>'+(tP/1e9).toFixed(2)+' M</td><td>'+(tO/1e9).toFixed(2)+' M</td><td>'+(tD?fmt(tP/tD)+fU(tP/tD):'—')+'</td></tr>';return h+'</tbody></table>';}
 function drawKUR(){const d=kurFiltered();const byW=kurByWilayah(d);
 charts.kurBar=new Chart(document.getElementById('cKurBar'),{type:'bar',data:{labels:byW.map(r=>r.wilayah),datasets:[{label:'Penyaluran',data:byW.map(r=>r.penyaluran/1e9),backgroundColor:'#2196F3',borderRadius:4,barPercentage:.7}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'Rp '+c.parsed.x.toFixed(2)+' M · '+byW[c.dataIndex].debitur+' debitur'}}},scales:{y:{ticks:{font:{size:9}},grid:{display:false}},x:{ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v.toLocaleString()},grid:{color:'#F1F5F9'}}}}});
-// Skema donut
 const bySkema={};d.forEach(r=>{if(!bySkema[r.skema])bySkema[r.skema]=0;bySkema[r.skema]+=r.penyaluran;});const skLabels=Object.keys(bySkema).sort((a,b)=>bySkema[b]-bySkema[a]);charts.kurSkema=new Chart(document.getElementById('cKurSkema'),{type:'doughnut',data:{labels:skLabels,datasets:[{data:skLabels.map(s=>bySkema[s]/1e9),backgroundColor:['#2196F3','#66BB6A','#F5A623','#EF5350','#7E57C2'],borderWidth:2,borderColor:'#fff'}]},options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{position:'bottom',labels:{font:{size:9},usePointStyle:true,padding:10}},tooltip:{callbacks:{label:c=>c.label+': Rp '+c.parsed.toFixed(2)+' M'}}}}});
-// Sektor bar (top 5)
 const bySektor={};d.forEach(r=>{if(!bySektor[r.sektor])bySektor[r.sektor]=0;bySektor[r.sektor]+=r.penyaluran;});const seLabels=Object.keys(bySektor).sort((a,b)=>bySektor[b]-bySektor[a]).slice(0,5);charts.kurSektor=new Chart(document.getElementById('cKurSektor'),{type:'bar',data:{labels:seLabels.map(s=>s.length>25?s.substring(0,25)+'…':s),datasets:[{data:seLabels.map(s=>bySektor[s]/1e9),backgroundColor:KAB_PAL.slice(0,5),borderRadius:4,barPercentage:.65}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{title:items=>seLabels[items[0].dataIndex],label:c=>'Rp '+c.parsed.x.toFixed(2)+' M'}}},scales:{y:{ticks:{font:{size:8}},grid:{display:false}},x:{ticks:{font:{family:'JetBrains Mono',size:9},callback:v=>v.toLocaleString()},grid:{color:'#F1F5F9'}}}}});}
 function kurMapStyle(f){const d=kurFiltered();const byW=kurByWilayah(d);const vals=byW.map(r=>r.penyaluran);const mn=Math.min(...vals),mx=Math.max(...vals);const w=f.properties.WADMKK;const wn=w.startsWith('Kota')?w:'Kab. '+w;const row=byW.find(r=>r.wilayah===wn||r.wilayah===w);return{fillColor:cCol(row?row.penyaluran:0,mn,mx),weight:1.5,color:'#fff',fillOpacity:.8};}
 function kurPopup(f){const d=kurFiltered();const byW=kurByWilayah(d);const w=f.properties.WADMKK;const wn=w.startsWith('Kota')?w:'Kab. '+w;const row=byW.find(r=>r.wilayah===wn||r.wilayah===w);let h='<div class="ppt">'+w+'</div>';if(row){h+='<div class="ppr"><span class="pl2">Penyaluran</span><span class="pv2">'+(row.penyaluran/1e9).toFixed(2)+' M</span></div><div class="ppr"><span class="pl2">Debitur</span><span class="pv2">'+row.debitur.toLocaleString()+'</span></div>';}else h+='<div style="color:var(--muted);font-size:.75rem">Belum ada data KUR</div>';return h;}
@@ -300,9 +301,11 @@ function bindEvents(){
   if(pillLoc)pillLoc.addEventListener('click',e=>{const p=e.target.closest('.pill');if(!p)return;const loc=p.dataset.loc;if(infLocs.includes(loc)){if(infLocs.length>1)infLocs=infLocs.filter(l=>l!==loc);}else infLocs.push(loc);render();});
   if(sAnalM)sAnalM.onchange=e=>{analM=+e.target.value;render();};
   if(bMove)bMove.onclick=()=>{analCmpMove=!analCmpMove;render();};
-  if(sKurY)sKurY.onchange=e=>{kurYear=e.target.value?+e.target.value:null;render();};
+  if(sKurYF)sKurYF.onchange=e=>{kurYearFrom=e.target.value?+e.target.value:null;render();};
+  if(sKurYT)sKurYT.onchange=e=>{kurYearTo=e.target.value?+e.target.value:null;render();};
   if(sKurSk)sKurSk.onchange=e=>{kurSkema=e.target.value;render();};
   if(sKurSe)sKurSe.onchange=e=>{kurSektor=e.target.value;render();};
+  if(sKurWil)sKurWil.onchange=e=>{kurWilayah=e.target.value;render();};
 }
 document.getElementById('subTabs').addEventListener('click',e=>{const t=e.target.dataset?.tab;if(t){tab=t;render();}});
 loadAll();
