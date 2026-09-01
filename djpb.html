@@ -81,7 +81,8 @@ table.dt tbody tr:hover{background:#F8FAFD}
 </div><div class="st">
 <div class="stb active">DJPb</div>
 <a href="bps.html" class="stb">BPS</a>
-<div class="stb disabled">Bank Indonesia</div>
+<a href="ojk.html" class="stb">OJK</a>
+<a href="bi.html" class="stb">Bank Indonesia</a>
 </div></div></header>
 <nav class="sub-tabs" id="subTabs"></nav>
 <main class="main" id="mainContent"><div class="loading"><div class="spinner"></div><span>Memuat data…</span></div></main>
@@ -160,7 +161,7 @@ function sCol(s){return s>=70?'#2E7D32':s>=50?'#66BB6A':s>=30?'#FF8F00':'#C62828
 function getInf(loc){const rows=D.inflasi.filter(r=>r.loc===loc&&r.yoy!==null).sort((a,b)=>a.waktu.localeCompare(b.waktu));return rows.length?rows[rows.length-1].yoy:null;}
 
 // ═══ TABS & RENDER ═══
-const TABS=[{id:'apbn',l:'APBN'},{id:'apbd',l:'APBD'},{id:'inflasi',l:'Inflasi'},{id:'kur',l:'KUR'},{id:'analisis',l:'Analisis'}];
+const TABS=[{id:'apbn',l:'APBN'},{id:'apbd',l:'APBD ⚠ Sementara'},{id:'kur',l:'KUR'},{id:'analisis',l:'Analisis'}];
 function render(){
   dC();dM();
   document.getElementById('subTabs').innerHTML=TABS.map(t=>'<div class="stab'+(t.id===tab?' active':'')+'" data-tab="'+t.id+'">'+t.l+'</div>').join('');
@@ -168,7 +169,6 @@ function render(){
   const main=document.getElementById('mainContent');
   if(tab==='apbn')main.innerHTML=renderAPBN();
   else if(tab==='apbd')main.innerHTML=renderAPBD();
-  else if(tab==='inflasi')main.innerHTML=renderInflasi();
   else if(tab==='kur')main.innerHTML=renderKUR();
   else main.innerHTML=renderAnalisis();
   bindEvents();bindCharts();
@@ -176,7 +176,6 @@ function render(){
 function bindCharts(){
   if(tab==='apbn')drawAPBN();
   else if(tab==='apbd'){drawAPBD();initMap('mapApbd',apbdMapStyle,apbdPopup);}
-  else if(tab==='inflasi')drawInflasi();
   else if(tab==='kur'){drawKUR();initMap('mapKur',kurMapStyle,kurPopup);}
   else{drawAnal();initMap('mapAnal',analMapStyle,analPopup);}
 }
@@ -284,7 +283,7 @@ function analMapStyle(f){const sc=computeScores(analM||apbdM);const p=w2a(f.prop
 function analPopup(f){const sc=computeScores(analM||apbdM);const p=w2a(f.properties.WADMKK);const s=sc.find(x=>x.pemda===p);let h='<div class="ppt">'+f.properties.WADMKK+'</div>';if(s)h+='<div class="ppr"><span class="pl2">Skor</span><span class="pv2" style="color:'+sCol(s.skor)+'">'+s.skor+'/100</span></div><div class="ppr"><span class="pl2">Rasio Belanja</span><span class="pv2">'+(s.rb*100).toFixed(1)+'%</span></div>';return h;}
 
 // ═══ MAP ═══
-function initMap(id,styleFn,popupFn){if(!D.geo||!document.getElementById(id))return;lmap=L.map(id,{scrollWheelZoom:false}).setView([-3.7,128.2],6);L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',{attribution:'©CartoDB',maxZoom:12}).addTo(lmap);glayer=L.geoJSON(D.geo,{style:styleFn,onEachFeature:(f,layer)=>{layer.bindPopup(popupFn(f));layer.on('mouseover',()=>layer.setStyle({weight:3,color:'#1565C0',fillOpacity:.9}));layer.on('mouseout',()=>glayer.resetStyle(layer));}}).addTo(lmap);lmap.fitBounds(glayer.getBounds().pad(0.05));}
+function initMap(id,styleFn,popupFn){if(!D.geo||!document.getElementById(id))return;lmap=L.map(id,{scrollWheelZoom:false}).setView([-3.7,128.2],6);L.tileLayer('https://basemaps.cartocdn.com/rastertiles/light_nolabels/{z}/{x}/{y}.png?key=cb1_2maz_1_6368be7eb1cbab521800398b',{attribution:'©CartoDB',maxZoom:12}).addTo(lmap);glayer=L.geoJSON(D.geo,{style:styleFn,onEachFeature:(f,layer)=>{layer.bindPopup(popupFn(f));layer.on('mouseover',()=>layer.setStyle({weight:3,color:'#1565C0',fillOpacity:.9}));layer.on('mouseout',()=>glayer.resetStyle(layer));}}).addTo(lmap);lmap.fitBounds(glayer.getBounds().pad(0.05));}
 
 // ═══ EVENTS ═══
 function bindEvents(){
