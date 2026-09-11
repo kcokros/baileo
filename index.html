@@ -5,35 +5,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BAILEO — Dashboard Kewilayahan Provinsi Maluku</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0A1628;--slate:#1B3A5C;--ocean:#1565A0;--sky:#2196F3;--gold:#F5A623;--surface:#F4F7FC;--card:#FFFFFF;--border:#E2E8F0;--text:#1E293B;--sub:#64748B;--muted:#94A3B8;--radius:12px;--shadow:0 1px 3px rgba(10,22,40,.06),0 4px 12px rgba(10,22,40,.04)}
+:root{--navy:#0C2B33;--slate:#12414B;--ocean:#1C7A82;--sky:#3FA9B5;--gold:#C08A34;--surface:#F5F1E8;--card:#FFFFFF;--border:#DDD4C2;--text:#211D16;--sub:#6B6152;--muted:#A79E8C;--radius:4px;--shadow:0 1px 2px rgba(20,16,8,.05)}
 *{margin:0;padding:0;box-sizing:border-box}html{font-size:15px}body{font-family:'Inter',system-ui,sans-serif;background:var(--surface);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
 .hero{background:linear-gradient(135deg,var(--navy) 0%,var(--slate) 50%,var(--ocean) 100%);position:relative;overflow:hidden;padding:4rem 2rem 3.5rem;text-align:center}
-.hero::before{content:'';position:absolute;top:-50%;left:-20%;width:140%;height:200%;background:radial-gradient(ellipse at 30% 80%,rgba(33,150,243,.12) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(38,198,218,.08) 0%,transparent 50%);pointer-events:none}
+.hero::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0px,rgba(255,255,255,.05) 1px,transparent 1px,transparent 34px);pointer-events:none}
 .hero-inner{position:relative;z-index:1;max-width:720px;margin:0 auto}
-.hero .mark{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.6rem}
-.hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:2.2rem;color:#fff;letter-spacing:-0.03em;line-height:1.15;margin-bottom:.4rem}
-.hero .sub{font-size:.82rem;color:rgba(255,255,255,.5);margin-bottom:.2rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+.hero .mark{font-family:'Source Serif 4',serif;font-weight:700;font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.7rem}
+.hero h1{font-family:'Source Serif 4',serif;font-weight:800;font-size:2.2rem;color:#fff;letter-spacing:-0.03em;line-height:1.15;margin-bottom:.4rem}
+.hero .sub{font-size:.85rem;color:rgba(255,255,255,.55);margin-bottom:.3rem;font-weight:500;letter-spacing:.01em}
 .hero .acronym{font-size:.72rem;color:rgba(255,255,255,.22);font-family:'Inter',sans-serif}
 .portal{max-width:840px;margin:-2rem auto 0;padding:0 2rem 3rem;position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
 .portal-card{background:var(--card);border-radius:var(--radius);padding:2rem 1.8rem;box-shadow:var(--shadow);border:1px solid var(--border);text-decoration:none;color:var(--text);transition:all .2s;position:relative;overflow:hidden}
 .portal-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
-.portal-card:hover{box-shadow:0 6px 24px rgba(10,22,40,.12);transform:translateY(-2px)}
+.portal-card:hover{box-shadow:0 6px 24px rgba(20,16,8,.14);transform:translateY(-2px)}
 .portal-card.djpb::before{background:linear-gradient(90deg,var(--ocean),var(--sky))}
-.portal-card.bps::before{background:linear-gradient(90deg,#7E57C2,#AB47BC)}
-.portal-card.ojk::before{background:linear-gradient(90deg,#00897B,#26C6DA)}
+.portal-card.bps::before{background:linear-gradient(90deg,#5B5A8C,#7A5C99)}
+.portal-card.ojk::before{background:linear-gradient(90deg,#2E7D6B,#6FB8B0)}
 .portal-card.bi::before{background:var(--gold)}
-.pc-icon{font-size:1.8rem;margin-bottom:.8rem}
-.pc-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:.5rem}
+.pc-mono{font-family:'Source Serif 4',serif;font-weight:700;font-size:.8rem;letter-spacing:.03em;min-width:2.5rem;height:2.1rem;padding:0 .5rem;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:1rem;border:1px solid var(--border)}
+.portal-card.djpb .pc-mono{color:var(--ocean);background:#EAF2EF}
+.portal-card.bps .pc-mono{color:#5B5A8C;background:#EDECF2}
+.portal-card.ojk .pc-mono{color:#2E7D6B;background:#E7EDE1}
+.portal-card.bi .pc-mono{color:var(--gold);background:#F2E6D4}
+.pc-title{font-family:'Source Serif 4',serif;font-weight:700;font-size:1.05rem;margin-bottom:.5rem}
 .pc-desc{font-size:.82rem;color:var(--sub);line-height:1.55}
 .pc-badge{display:inline-block;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 8px;border-radius:4px;margin-top:.8rem}
-.pc-badge.live{background:#E8F5E9;color:#2E7D32}
-.pc-badge.soon{background:#FFF3E0;color:#E65100}
+.pc-badge.live{background:#E7EDE1;color:#3B6E4E}
+.pc-badge.soon{background:#F2E6D4;color:#8C4A1E}
 .portal-card.disabled{opacity:.5;pointer-events:none}
 .info{max-width:840px;margin:0 auto;padding:0 2rem 2rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
 .info-item{text-align:center;padding:1rem}
-.info-item .ii-val{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.4rem;color:var(--ocean)}
+.info-item .ii-val{font-family:'Source Serif 4',serif;font-weight:800;font-size:1.4rem;color:var(--ocean)}
 .info-item .ii-lab{font-size:.72rem;color:var(--sub);margin-top:.2rem;text-transform:uppercase;letter-spacing:.04em;font-weight:600}
 .footer{margin-top:auto;padding:1.2rem 2rem;text-align:center;font-size:.72rem;color:var(--muted);border-top:1px solid var(--border)}
 .footer a{color:var(--ocean);text-decoration:none}
@@ -53,34 +57,32 @@
 
 <div class="portal">
 <a href="djpb.html" class="portal-card djpb">
-<div class="pc-icon">📊</div>
+<div class="pc-mono">DJ</div>
 <div class="pc-title">DJPb — Data Fiskal</div>
 <div class="pc-desc">Eksekusi APBN, realisasi APBD per pemda, inflasi kota, penyaluran KUR, dan analisis skor kinerja kewilayahan.</div>
 <span class="pc-badge live">Live</span>
 </a>
 <a href="bps.html" class="portal-card bps">
-<div class="pc-icon">📈</div>
+<div class="pc-mono">BPS</div>
 <div class="pc-title">BPS — Data Sosio-Ekonomi</div>
 <div class="pc-desc">PDRB, kemiskinan, IPM, Gini, pengangguran per kab/kota, dan analisis lintas data fiskal × ekonomi.</div>
 <span class="pc-badge live">Live</span>
 </a>
 <a href="ojk.html" class="portal-card ojk">
-<div class="pc-icon">🏦</div>
+<div class="pc-mono">OJK</div>
 <div class="pc-title">OJK — Kredit & Keuangan</div>
 <div class="pc-desc">Kredit perbankan per segmen, rasio NPL per kab/kota, dan indeks literasi & inklusi keuangan (SNLIK).</div>
 <span class="pc-badge live">Live</span>
 </a>
 <a href="bi.html" class="portal-card bi">
-<div class="pc-icon">💰</div>
+<div class="pc-mono">BI</div>
 <div class="pc-title">Bank Indonesia — Moneter & Digital</div>
 <div class="pc-desc">Arus uang masuk-keluar Maluku, BI Rate, dan pertumbuhan transaksi digital (QRIS).</div>
 <span class="pc-badge live">Live</span>
 </a>
 </div>
 
-<footer class="footer">
-BAILEO — Kanwil DJPb Provinsi Maluku · Sumber data: DJPb · BPS · OJK · BI<br>
-</footer>
+<footer class="footer">Dikelola oleh Seksi PPA II, Kanwil DJPb Provinsi Maluku, dengan data dari DJPb, BPS, OJK, dan Bank Indonesia.</footer>
 
 </body>
 </html>
